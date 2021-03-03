@@ -45,6 +45,7 @@ class Marketing extends Model
         'user_by',
         'start_show',
         'end_show',
+        'klinik_id'
         
     ];
 
@@ -64,5 +65,10 @@ class Marketing extends Model
     public function perumahan()
     {
         return $this->belongsTo(\App\Models\Perumahan::class, 'perumahan_id');
+    }
+    
+    public function klinik()
+    {
+        return $this->belongsTo(\App\Models\BeautyKlinik::class, 'klinik_id');
     }
 }

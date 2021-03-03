@@ -9,6 +9,57 @@ if (! function_exists('customTanggal')) {
    }
 }
 
+
+
+if (! function_exists('Closetags')) {
+   Function Closetags($html) {
+      $arr_single_tags = array('meta','img','br','link','area');
+        preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])\s*>#iU', $html, $result);
+        $openedtags = $result[1];
+        preg_match_all('#</([a-z]+)>#iU', $html, $result);
+        $closedtags = $result[1];
+        $len_opened = count($openedtags);
+        if (count($closedtags) == $len_opened){
+            return $html;
+        }
+        $openedtags = array_reverse($openedtags);
+        //re arrange open tags and closed tags for count 
+        $aOpenedtagsCnt=Array();
+        $aClosedtagsCnt=Array();
+        if(is_array($openedtags)){
+            foreach($openedtags as $iK =>$sTag){
+                if(!isset($aOpenedtagsCnt[$sTag])){
+                    $aOpenedtagsCnt[$sTag]=1;
+                }else{
+                    $aOpenedtagsCnt[$sTag]++;
+                }
+            }
+        }
+        if(is_array($closedtags)){
+            foreach($closedtags as $iK =>$sTag){
+                if(!isset($aClosedtagsCnt[$sTag])){
+                    $aClosedtagsCnt[$sTag]=1;
+                }else{
+                    $aClosedtagsCnt[$sTag]++;
+                }
+            }
+        }
+        for ($i=0; $i < $len_opened; $i++){
+            if (!in_array($openedtags[$i],$arr_single_tags)){
+                if ($aOpenedtagsCnt[$openedtags[$i]]!=$aClosedtagsCnt[$openedtags[$i]]){
+                    $html .= '</'.$openedtags[$i].'>';
+                    if(!isset($aClosedtagsCnt[$openedtags[$i]])){
+                        $aClosedtagsCnt[$openedtags[$i]]=1;
+                    }else{
+                        $aClosedtagsCnt[$openedtags[$i]]++;
+                    }
+                }
+            }
+        }
+        return $html;
+   }
+}
+
 if (! function_exists('actGuest')) {
    function actGuest($actAction  = '-'){
       try {

@@ -12,7 +12,13 @@ use App\Models\Developer;
 use App\Models\FrontSetting;
 use App\Models\Guest;
 use App\Models\Marketing;
-use App\Models\Perumahan;
+
+// use App\Models\Perumahan;
+use App\Models\BeautyKlinik as Perumahan;
+use App\Models\BeautyProduct;
+use App\Models\BeautyCategoriProduct;
+use App\Models\BeautyPromo;
+
 use App\Models\User;
 use App\Models\Categorie;
 
@@ -37,7 +43,8 @@ class HomeController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     private function thema(){
-      return 'ranon.';
+      // return 'ranon.';
+      return 'onefamily.';
     }
 
     private function base( $saveActifity = true ){
@@ -66,6 +73,19 @@ class HomeController extends BaseController
          $baseApp[$kKontenHome] = $vKontenHome;
       }
       return $baseApp;
+    }
+
+    public function getWelcome(Request $request){
+      
+      // if( Auth::check() ){
+      //     return redirect()->route('expoproperty_front.home');
+      // }
+
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+
+      return view( $this->thema() . 'welcome', compact( 'base', 'baseApp', 'sponsor') );
     }
 
     public function getHome(Request $request){
@@ -133,7 +153,8 @@ class HomeController extends BaseController
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
       
 
-      return view( $this->thema() . 'login', compact( 'base', 'baseApp', 'sponsor') );
+      // return view( $this->thema() . 'login', compact( 'base', 'baseApp', 'sponsor') );
+      return view( $this->thema() . 'welcome', compact( 'base', 'baseApp', 'sponsor') );
     }
 
     public function showFormRegister(Type $var = null){
@@ -166,9 +187,102 @@ class HomeController extends BaseController
       $vid = ( $request->vid ) ? false : true ;
       $base['vid'] = $vid;
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
-      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->get();
+      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
 
       return view( $this->thema() . 'detail', compact( 'base', 'baseApp', 'sponsor', 'perumahan', 'perumahan_list', 'event_list') );
+    }
+
+    public function getProduct( $id, Request $request) {
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+      
+      $productDetail = BeautyProduct::where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
+
+      $perumahan_list = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->orderBy('sort', 'asc')->get();
+
+      
+      if( !$productDetail ){
+        return view( $this->thema() . 'notFound', compact( 'base', 'baseApp') );
+      }
+
+      $catProduct = BeautyCategoriProduct::where('status', 1)->whereNull('deleted_at')->get();
+      
+      $vid = ( $request->vid ) ? false : true ;
+      $base['vid'] = $vid;
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
+
+      return view( $this->thema() . 'product', compact( 'base', 'baseApp', 'sponsor', 'productDetail', 'perumahan_list', 'event_list', 'catProduct') );
+    }
+
+    public function getKategoriProduct($id = '', Request $request){
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+      
+      if( $id ){
+        $cat = BeautyCategoriProduct::where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
+        $product = ($cat->allProduct == '') ? [] : $cat->allProduct;
+        $title = 'Kategori : '.$cat->name;
+      } else {
+        $title = 'All Product ';
+        $cat = BeautyCategoriProduct::getModel();
+        $product = BeautyProduct::where('status', 1)->whereNull('deleted_at')->get();
+      }
+      
+      
+      // if( !$productDetail ){
+      //   return view( $this->thema() . 'notFound', compact( 'base', 'baseApp') );
+      // }
+      
+      $perumahan_list = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->orderBy('sort', 'asc')->get();
+
+      $catProduct = BeautyCategoriProduct::where('status', 1)->whereNull('deleted_at')->get();
+      
+      $vid = ( $request->vid ) ? false : true ;
+      $base['vid'] = $vid;
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
+
+      return view( $this->thema() . 'productKategori', compact( 'base', 'baseApp', 'sponsor', 'product', 'perumahan_list', 'event_list', 'catProduct', 'title', 'cat') );
+    } 
+
+    public function getSearchProduct($s = '', Request $request){
+
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+     
+      if( !$s ){
+        $s = $request->s;
+      }
+
+      $cat = BeautyCategoriProduct::getModel();
+      $title = 'Search : '.$s;
+
+      if( $s ){
+        $product = BeautyProduct::where('status', 1)->whereNull('deleted_at')
+                  ->where('name', 'LIKE', '%' . $s . '%')
+                  ->orwhere('desc', 'LIKE', '%' . $s . '%')
+                  ->get();
+      } else {
+        $product = BeautyProduct::where('status', 1)->whereNull('deleted_at')->get();
+      }
+      
+      
+      // if( !$productDetail ){
+      //   return view( $this->thema() . 'notFound', compact( 'base', 'baseApp') );
+      // }
+      
+      $perumahan_list = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->orderBy('sort', 'asc')->get();
+
+      $catProduct = BeautyCategoriProduct::where('status', 1)->whereNull('deleted_at')->get();
+      
+      $vid = ( $request->vid ) ? false : true ;
+      $base['vid'] = $vid;
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
+
+      return view( $this->thema() . 'productKategori', compact( 'base', 'baseApp', 'sponsor', 'product', 'perumahan_list', 'event_list', 'catProduct', 'title', 'cat') );
+
     }
 
     public function getMyAccount(Request $request)
@@ -187,19 +301,60 @@ class HomeController extends BaseController
       return view( $this->thema() . 'my-account', compact( 'base', 'baseApp', 'account', 'sponsor', 'perumahan_list') );
     }
 
-    public function getEvent( $id, Request $request) {
+    public function getEvent( $id = '', Request $request) {
       $base = $this->base();
       $baseApp = $this->baseApp();
 
       $account = Auth::user();
-      $event = expoEvent::where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
-      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->get();
+      if( $id ){
+        $event = expoEvent::where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
+        try {
+          $title = $event->name;
+          $desc = $event->tema;
+        } catch (\Throwable $th) {
+          return view( $this->thema() . 'notFound', compact( 'base', 'baseApp') );
+        }
+        $event = [$event];
+        $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
+      } else {
+        $event = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->get();
+        $title = 'All Event';
+        $desc = false;
+        $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
+      }
+
+      $perumahan_list = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->orderBy('sort', 'asc')->get();
+
+      $catProduct = BeautyCategoriProduct::where('status', 1)->whereNull('deleted_at')->get();
       
       $vid = ( $request->vid ) ? false : true ;
       $base['vid'] = $vid;
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
 
-      return view( $this->thema() . 'event', compact('event', 'base', 'baseApp', 'account', 'sponsor', 'event_list') );
+      return view( $this->thema() . 'event', compact('event', 'base', 'baseApp', 'sponsor', 'perumahan_list', 'event_list', 'catProduct', 'title', 'desc') );
+    }
+
+    public function getKlaimPromo(Request $request){
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+
+      $account = Auth::user();
+
+      $promo = BeautyPromo::where('status', 1)->whereNull('deleted_at')->orderBy('updated_at', 'desc')->get();
+      
+      $title = 'Promo';
+      $desc = false;
+      $event_list = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->limit(5)->get();
+
+      $perumahan_list = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->orderBy('sort', 'asc')->get();
+
+      $catProduct = BeautyCategoriProduct::where('status', 1)->whereNull('deleted_at')->get();
+      
+      $vid = ( $request->vid ) ? false : true ;
+      $base['vid'] = $vid;
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+
+      return view( $this->thema() . 'klaimPromo', compact('promo', 'base', 'baseApp', 'sponsor', 'perumahan_list', 'event_list', 'catProduct', 'title', 'desc') );
     }
 
     public function gooAnalytic(Request $request)

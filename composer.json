@@ -15,6 +15,7 @@
         "irazasyed/telegram-bot-sdk": "^3.4",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "orangehill/iseed": "^3.0",
         "pusher/pusher-php-server": "^4.1"
     },
     "require-dev": {
@@ -23,6 +24,7 @@
         "laravel/sail": "^0.0.5",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
+        "oscarafdev/migrations-generator": "^2.0",
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {

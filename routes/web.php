@@ -41,6 +41,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'uses' => 'HomeController@getRegional',
         ]);
 
+        Route::get('/product/{id}', [
+            'as' => 'expoproperty_front.product',
+            'uses' => 'HomeController@getProduct',
+        ]);
+
+        Route::get('/kategori-product/{id?}', [
+            'as' => 'expoproperty_front.kategoriProduct',
+            'uses' => 'HomeController@getKategoriProduct',
+        ]);
+
+        Route::get('/cari-product/{s?}', [
+            'as' => 'expoproperty_front.searchProduct',
+            'uses' => 'HomeController@getSearchProduct',
+        ]);
+
         Route::get('/download-browsur/{id}', [
             'as' => 'expoproperty_front.downloadBrowsur',
             'uses' => 'HomeController@getDownloadBrowsur',
@@ -56,9 +71,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'uses' => 'HomeController@getMyAccount',
         ]);
 
-        Route::get('/event/{id}', [
+        Route::get('/event/{id?}', [
             'as' => 'expoproperty_front.event',
             'uses' => 'HomeController@getEvent',
+        ]);
+
+        Route::get('/promo', [
+            'as' => 'expoproperty_front.klaimPromo',
+            'uses' => 'HomeController@getKlaimPromo',
         ]);
 
         Route::post('/sendComment', [
@@ -81,6 +101,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'uses' => 'HomeController@webhook',
         ]);
     });
+
+    Route::get('/welcome', [
+        'as' => 'expoproperty_front.login',
+        'uses' => 'HomeController@getWelcome',
+    ]);
 
     Route::get('/login', [
         'as' => 'expoproperty_front.login',
