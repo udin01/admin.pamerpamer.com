@@ -1,0 +1,159 @@
+/* Add here all your CSS customizations */
+
+.our-services .service-card {
+    padding: 65px 0 65px 35px;
+}
+
+.our-services .service-card:before {
+    background-color: #292929;
+}
+.our-services .service-card:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 3px;
+    margin-right: 10px;
+    transition: .5s width;
+}
+
+
+/* ----------------------- */
+.custom-circle-date.no-border {
+    border-color: transparent;
+    box-shadow: none;
+}
+.custom-circle-date {
+    position: relative;
+    width: 118px;
+    height: 118px;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    z-index: 2;
+    box-shadow: 0 11px 21px 0 rgb(229 232 235 / 75%);
+}
+.custom-circle-date .circle-dotted {
+    position: absolute;
+    padding: 16px;
+    width: 106px;
+    height: 106px;
+    top: 5px;
+    left: 5px;
+    display: table;
+    border-style: dashed;
+    border-width: 1px;
+    border-radius: 50%;
+}
+.custom-circle-date .circle-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+.timeline-balloon {
+    position: relative;
+}
+.timeline-balloon::before {
+    height: 120%;
+    top: -35px;
+}
+.timeline-balloon::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    left: 83px;
+    background-color: #e6ebeb;
+}
+.timeline-balloon .balloon-time {
+    width: 93px;
+    white-space: nowrap;
+}
+.timeline-balloon .balloon-cell {
+    display: table-cell;
+    vertical-align: top;
+    /* width: 100%; */
+}
+.timeline-balloon .balloon-time .time-text {
+    display: inline-block;
+    vertical-align: middle;
+    width: 68px;
+}
+.custom-font-size-3 {
+    font-size: .9285714286em!important;
+    line-height: 1;
+}
+.timeline-balloon .balloon-time .time-dot {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.timeline-balloon .balloon-time .time-dot::before {
+    border-color: #43a6a3;
+}
+.timeline-balloon .balloon-time .time-dot::before {
+    content: '';
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+    border-color: #43a6a3;
+    transform: translate(-50%,-50%);
+}
+.timeline-balloon .balloon-time .time-dot::after {
+    background-color: #43a6a3;
+}
+.timeline-balloon .balloon-time .time-dot::after {
+    content: '';
+    position: absolute;
+    background-color: #43a6a3;
+    width: 7px;
+    height: 7px;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+}
+.timeline-balloon .balloon-content.balloon-shadow {
+    box-shadow: 0 11px 21px 0 rgb(229 232 235 / 75%);
+}
+.timeline-balloon .balloon-content {
+    position: relative;
+    margin-left: 38px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    border-color: #e6ebeb;
+}
+.timeline-balloon .balloon-content .balloon-arrow {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 35px;
+    left: -15px;
+    border-width: 1px;
+    border-style: solid;
+    border-right: none;
+    border-bottom: none;
+    border-color: #e6ebeb;
+    transform: rotate(
+-45deg
+);
+    transform-origin: left top;
+}
+html .bg-color-light, html .bg-light {
+    background-color: #fff!important;
+}
+.timeline-balloon .balloon-content .balloon-photo {
+    display: table-cell;
+    vertical-align: top;
+    height: 64px;
+    width: 220px;
+    max-width: 220px;
+    padding-top: 6px;
+    margin: auto;
+}
