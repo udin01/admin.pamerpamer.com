@@ -50,7 +50,8 @@ class BeautyKlinik extends Model
         'sosmed',
         'user_by',
         'sort',
-        'categorie_id'
+        'categorie_id',
+        'profil_video'
         
     ];
 

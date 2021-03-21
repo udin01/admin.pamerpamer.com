@@ -35,8 +35,15 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
             <div class="video-background">
                 <div class="video-foreground video-selector">
                 
-                @php
+               
+               @php
+               
+               if( substr_count( $perumahan->profil_video, "watch?v=") ){
+                  $perumahan->profil_video = str_replace("watch?v=","embed/", $perumahan->profil_video );
+               }
+
                   $videoProfile = ($perumahan->profil_video) ? '<iframe id="profileVideo_dev" src="'.$perumahan->profil_video .'?enablejsapi=1&autoplay=1&controls=0&showinfo=0&rel=0&loop=1" frameborder="0" name="youtube embed" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' : $baseApp['yt_welcome'];
+
 
                   if( !$base['vid'] ){
                      $videoProfile = str_replace("autoplay=1","autoplay=0", $videoProfile );
@@ -87,7 +94,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                            $url="javascript:void(0);";
                            switch ($logo) {
                               case 'ig':
-                                 $logo = 'fa-instagram';
+                                 $logo = 'fab fa-instagram';
                                  if( substr_count( $sosKey, "instagram.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -100,7 +107,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
 
                               case 'instagram':
-                                 $logo = 'fa-instagram';
+                                 $logo = 'fab fa-instagram';
                                  if( substr_count( $sosKey, "instagram.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -113,7 +120,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
 
                               case 'fb':
-                                 $logo = 'fa-facebook-official';
+                                 $logo = 'fab fa-facebook-official';
                                  if( substr_count( $sosKey, "facebook.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -122,7 +129,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
                                  
                               case 'facebook':
-                                 $logo = 'fa-facebook-official';
+                                 $logo = 'fab fa-facebook-official';
                                  if( substr_count( $sosKey, "facebook.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -131,17 +138,17 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
                                  
                               case 'web':
-                                 $logo = 'fa-globe';
+                                 $logo = 'fab fa-globe';
                                  $url = $sosKey;
                                  break;
 
                               case 'website':
-                                 $logo = 'fa-globe';
+                                 $logo = 'fab fa-globe';
                                  $url = $sosKey;
                                  break;
 
                               case 'twitter':
-                                 $logo = 'fa-twitter';
+                                 $logo = 'fab fa-twitter';
                                  if( substr_count( $sosKey, "twitter.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -150,16 +157,17 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
 
                               case 'email':
-                                 $logo = 'fa-envelope';
+                                 $logo = 'fab fa-envelope';
                                  break;
 
                               default:
-                                 $logo = 'fa-cloud';
+                                 $logo = 'fa fa-cloud';
+                                 $url = $sosKey;
                               }
                         @endphp
                          <a href="{{ $url }}" class="text-success" target="_blank" onclick="gooAnalytic({'{{ $logo }}': '{{ $url }}' })">
                            <h5 class="py-1 my-0 text-header">
-                              <i class="fab {{ $logo }} fa-1x"></i>&nbsp;&nbsp;&nbsp;{{ $sosKey }}
+                              <i class="{{ $logo }} fa-1x"></i>&nbsp;&nbsp;&nbsp;{{ $sosKey }}
                            </h5>
                          </a>
                          {{-- &nbsp;&nbsp; --}}
@@ -347,10 +355,10 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
 
    <div class="row mb-6">
       <div class="col">
-         <div class="owl-carousel owl-theme stage-margin" data-plugin-options="{'items': 4, 'margin': 5, 'loop': false, 'nav': true, 'dots': false, 'stagePadding': 40}">
+         <div class="owl-carousel owl-theme stage-margin m-auto" data-plugin-options="{'items': 4, 'margin': 5, 'loop': false, 'nav': true, 'dots': false, 'stagePadding': 40}">
             
             @foreach ( $perumahan->pegawai as $kPegawai => $pegawai )
-               <div>
+               <div class="m-auto">
                    <div class="portfolio-item">
                      <a href="javascript:void(0);" data-toggle="modal" data-target="#dok{{ $pegawai->id }}">
                         <span class="thumb-info thumb-info-lighten border-radius-0">
