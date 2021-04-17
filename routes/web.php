@@ -18,43 +18,86 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     
-    Route::group(['middleware' => 'auth'], function () {
+    // Route::group(['middleware' => 'auth'], function () {
     // Route::group(['middleware' => 'web'], function () {
+        
+        /*
         Route::get('/', [
             'as' => 'expoproperty_front.home',
             'uses' => 'HomeController@getHome',
         ]);
+        */
         Route::get('/perumahan/{dev}/{id}', [
             'as' => 'expoproperty_front.slugDev',
             'uses' => 'HomeController@getSlugDev',
         ]);
-        Route::get('/developer/{id}', [
+        Route::get('/perusahaan/{id?}', [
             'as' => 'expoproperty_front.dev',
             'uses' => 'HomeController@getDev',
         ]);
+
+        Route::get('/job-detail/{id}', [
+            'as' => 'expoproperty_front.jobDetail',
+            'uses' => 'HomeController@getProduct',
+        ]);
+
+        Route::get('/category/{slug?}', [
+            'as' => 'expoproperty_front.regionalSlug',
+            'uses' => 'HomeController@getRegional',
+        ]);
+        
+        Route::get('/search-job/{s?}', [
+            'as' => 'expoproperty_front.searchProduct',
+            'uses' => 'HomeController@getSearchProduct',
+        ]);
+
         Route::get('/regionalId/{id}', [
             'as' => 'expoproperty_front.regional',
             'uses' => 'HomeController@getDev',
         ]);
-        Route::get('/regional/{slug}', [
-            'as' => 'expoproperty_front.regionalSlug',
-            'uses' => 'HomeController@getRegional',
-        ]);
 
-        Route::get('/product/{id}', [
+
+        Route::get('/job/{id}', [
             'as' => 'expoproperty_front.product',
             'uses' => 'HomeController@getProduct',
         ]);
 
-        Route::get('/kategori-product/{id?}', [
+        Route::get('/kategori-jobs/{id?}', [
             'as' => 'expoproperty_front.kategoriProduct',
             'uses' => 'HomeController@getKategoriProduct',
         ]);
-
-        Route::get('/cari-product/{s?}', [
-            'as' => 'expoproperty_front.searchProduct',
-            'uses' => 'HomeController@getSearchProduct',
+        
+        Route::get('/kategori-jobs/{slug?}', [
+            'as' => 'expoproperty_front.kategoriProductSlug',
+            'uses' => 'HomeController@getKategoriProductSlug',
         ]);
+
+        Route::get('/save-job/{id?}', [
+            'as' => 'expoproperty_front.saveJob',
+            'uses' => 'HomeController@postSaveJob',
+        ]);
+        Route::get('/save-job-delete/{id?}', [
+            'as' => 'expoproperty_front.saveJobDelete',
+            'uses' => 'HomeController@postSaveJobDelete',
+        ]);
+
+        Route::post('/apply-job/{id?}', [
+            'as' => 'expoproperty_front.applyJob',
+            'uses' => 'HomeController@postApplyJob',
+        ]);
+        Route::get('/apply-job-delete/{id?}', [
+            'as' => 'expoproperty_front.applyJobDelete',
+            'uses' => 'HomeController@postApplyJobDelete',
+        ]);
+
+         Route::get('/attachement/{id?}', [
+            'as' => 'expoproperty_front.viewFile',
+            'uses' => 'HomeController@getViewFile',
+        ]);
+
+        
+        // ==========================================================
+
 
         Route::get('/download-browsur/{id}', [
             'as' => 'expoproperty_front.downloadBrowsur',
@@ -66,10 +109,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'uses' => 'HomeController@getViewBrowsur',
         ]);
 
-        Route::get('/my-account', [
-            'as' => 'expoproperty_front.myAccount',
-            'uses' => 'HomeController@getMyAccount',
-        ]);
+
+        // Route::group(['middleware' => 'auth'], function () {
+        //     Route::get('/my-account', [
+        //         'as' => 'expoproperty_front.myAccount',
+        //         'uses' => 'HomeController@getMyAccount',
+        //     ]);
+        // });
+
 
         Route::get('/event/{id?}', [
             'as' => 'expoproperty_front.event',
@@ -100,7 +147,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'as' => 'expoproperty_front.webhook',
             'uses' => 'HomeController@webhook',
         ]);
-    });
+    // });
+
+    Route::get('/', [
+        'as' => 'expoproperty_front.home',
+        'uses' => 'HomeController@getWelcome',
+    ]);
+
+    Route::get('/home', [
+        'as' => 'expoproperty_front.home2',
+        'uses' => 'HomeController@getHome',
+    ]);
 
     Route::get('/welcome', [
         'as' => 'expoproperty_front.login',
@@ -111,10 +168,46 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         'as' => 'expoproperty_front.login',
         'uses' => 'HomeController@getLogin',
     ]);
-    Route::get('/login', [
-        'as' => 'login',
-        'uses' => 'HomeController@getLogin',
+    Route::get('/signup', [
+        'as' => 'expoproperty_front.signup',
+        'uses' => 'HomeController@getSignup',
     ]);
+    Route::post('/post-signup', [
+        'as' => 'expoproperty_front.post-signup',
+        'uses' => 'AuthController@postSignup',
+    ]);
+    Route::post('/postlogin', [
+        'as' => 'expoproperty_front.post-login',
+        'uses' => 'AuthController@postLogin',
+    ]);
+    // Route::get('/akunku', [
+    //     'as' => 'expoproperty_front.akunku',
+    //     'uses' => 'HomeController@getAkunku',
+    // ]);
+    Route::get('/my-account/{act?}', [
+        'as' => 'expoproperty_front.myAccount',
+        'uses' => 'HomeController@getAkunku',
+    ]);
+    Route::post('/save-account', [
+        'as' => 'expoproperty_front.saveAccount',
+        'uses' => 'HomeController@postAkun',
+    ]);
+    Route::post('/upload-cv', [
+        'as' => 'expoproperty_front.uploadcv',
+        'uses' => 'HomeController@postUploadcv',
+    ]);
+
+
+    // ==========================================================
+    // ==========================================================
+    // ==========================================================
+
+
+    Route::get('/test-view', [
+        'as' => 'test.view',
+        'uses' => 'TestController@getHome',
+    ]);
+
     Route::post('/post-login', [
         'as' => 'postLogin',
         'uses' => 'AuthController@login',
@@ -139,6 +232,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/getOTP', [
         'as' => 'getOTPlagi',
         'uses' => 'AuthController@getOTPlagi',
+    ]);
+    Route::get('/maintenance', [
+        'as' => 'maintenance',
+        'uses' => 'HomeController@getMaintenance',
     ]);
 
 });

@@ -30,11 +30,18 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
 use Session;
- 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Arr;
+
+
  
 class AuthController extends BaseController
 {
  
+    private function event(){
+      return env('EVENT_ID', 1);
+    }
+
     public function login(Request $request)
     {
         $rules = [
@@ -168,6 +175,89 @@ class AuthController extends BaseController
         }
     }
 
+    public function postSignup(Request $request){
+        // dd($request->all());
+        $telp =  str_replace(" ","", $request->telp );
+        $telp =  (int) $telp ;
+
+        try {
+            // $otp = Str::random(6);
+
+            $username = Str::snake( ucwords(strtolower($request->name)) );
+
+            $user = \App\Models\JobfairUser::where('email', $request->email)->orWhere('username', $username)->first();
+
+            if($user){
+                return response()->json(['response' => 'error','errorMessage'=> 'User Exist' ]);
+            }
+
+            
+            $user = new \App\Models\JobfairUser;
+            $user->name = ucwords(strtolower($request->name));
+            $user->username =  $username ;
+            // $user->wa = strtolower($request->wa);
+            $user->telp = $telp ;
+            $user->email = $request->email;
+            $user->uuid = (string) Str::uuid();
+            $user->status = 0;
+            $user->event_id = $this->event();
+            $user->password = Hash::make( $request->password );
+            $simpan = $user->save();
+
+            // $resp = sendWa( env('KEY_WHT'), $noWA, $text, $user->id, 'Send OTP');
+            
+            return response()->json(['response' => 'success']);
+            
+        } catch (\Throwable $th) {
+            Log::error($th);
+            return response()->json(['response' => 'error', 'errorMessage'=> 'Maaf terjadi Kesalahan dalam system']);
+        }
+
+        // -------------------
+        /*
+        	$arrResult = array ('response'=>'success');
+
+            } catch (Exception $e) {
+                $arrResult = array ('response'=>'error','errorMessage'=>$e->errorMessage());
+            } catch (\Exception $e) {
+                $arrResult = array ('response'=>'error', 'errorMessage'=>$e->getMessage());
+            }
+        */
+        // ./-------------------
+    }
+
+    public function postLogin(Request $request){
+        
+        if( !$request->email || !$request->password ){
+            // return response()->json(['response' => 'error', 'errorMessage'=> 'Email dan password Kosong' ]);
+            return redirect()->back()->with(['msg' => 'Email dan password Kosong']);
+        }
+
+
+        $user = \App\Models\JobfairUser::where('email', $request->email)->first();
+
+        if(!$user){
+            // return response()->json(['response' => 'error', 'errorMessage'=> 'User Belum Terdaftar']);
+            return redirect()->back()->with(['msg' => 'User Belum Terdaftar']);
+        }
+
+        if ( !Hash::check( $request->password, $user->password )) {
+            // return response()->json(['response' => 'error', 'errorMessage'=> 'Password salah']);
+            return redirect()->back()->with(['msg' => 'Password salah']);
+        }
+        
+        Auth::login($user);
+        // $user->status = 1;
+        // $user->save();
+
+        // dd(Auth::check());
+            
+        // actGuest('Login');
+        return redirect()->route('expoproperty_front.home2');
+        // return response()->json(['response' => 'success']);
+
+    }
+
     public function waKamu(Request $request){
         if(!$request->noWa){
             return true;
@@ -265,9 +355,10 @@ class AuthController extends BaseController
  
     public function logout()
     {
-        actGuest('Logout');
+        // actGuest('Logout');
         Auth::logout(); // menghapus session yang aktif
-        return redirect()->route('login');
+        // return redirect()->route('login');
+        return redirect()->route('expoproperty_front.home2');
     }
  
  

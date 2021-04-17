@@ -1,7 +1,5 @@
 /*
 Name: 			Elements - Image Gallery - Examples
-Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version:	8.2.0
 */
 (function($) {
 
