@@ -75,9 +75,7 @@ class HomeController extends BaseController
         */
 
       }
-
-
-
+    	SaveVisitorInfo();
     }
 
     
@@ -222,6 +220,12 @@ class HomeController extends BaseController
 
       try {
         $mimeType = $file->getMimeType();
+       } catch (\Throwable $th) {
+        // Log::debug( $th );
+      	return redirect()->route('expoproperty_front.myAccount', ['act' => 'tabsResume'])->withMsg('type file bermasalah:: gunakan type file pdf untuk memudahkan perushaan memeriksa')->withType('error');
+      }
+    
+      try {
         if($mimeType === "text/x-php"){
           return redirect()->route('expoproperty_front.myAccount', ['act' => 'tabsResume'])->withMsg('type file tidak diperkenenkan untuk diupload:: 1')->withType('error');
         } elseif($mimeType === "text/plain") {
@@ -255,16 +259,19 @@ class HomeController extends BaseController
     public function getViewFile($id, Request $request){
       if( !Auth::check() ){ 
         // return redirect()->route('expoproperty_front.login')->withMsg('login first');
-        return '';
+        // return '';
       }
+    
+    if( Auth::check() ){ 
       $userId = Auth::user()->id;
       actGuest(' { "view-file": "file '.$userId.'"}' );
+    }
 
       $fileTarget = JobfairUser::where('uuid', $id)->first();
 
       if(!$fileTarget){
           // return redirect()->back()->withMsg('sory, file not found')->withType('error');
-          return '';
+          return 'file not found';
       } else {
 
         try {
@@ -273,15 +280,17 @@ class HomeController extends BaseController
         } catch (\Throwable $th) {
           Log::debug( $th );
           // return redirect()->back()->withMsg('sory, file not found')->withType('error');
+        	// dump($th);
           return '';
         }
 
         try {
           $response = Response::make($file, 200);
-          $response->header('Content-Type', Auth::user()->cv_mimetype);
+          $response->header('Content-Type', $fileTarget->cv_mimetype);
           return $response;
         } catch (\Throwable $th) {
           Log::debug( $th );
+        // dump($th);
           return '';
         }
 
@@ -518,11 +527,15 @@ class HomeController extends BaseController
       return view( $this->thema() . 'detail', compact( 'base', 'baseApp', 'sponsor', 'perumahan', 'perumahan_list', 'event_list') );
     }
 
-    public function getProduct( $id, Request $request) {
+    public function getProduct( $id = null, Request $request) {
       $base = $this->base();
       $baseApp = $this->baseApp();
       
       $productDetail = JobfairJobs::where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
+    
+      if( !$productDetail ){
+        return view( $this->thema() . 'notFound', compact( 'base', 'baseApp') );
+      }
 
       $btnSaveJob = true;
       $btnApplyJob = true;
@@ -536,9 +549,7 @@ class HomeController extends BaseController
       $perumahan_list = Perumahan::where('event_id', $baseApp['event_aktif'] )->where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->orderBy('sort', 'asc')->get();
 
       
-      if( !$productDetail ){
-        return view( $this->thema() . 'notFound', compact( 'base', 'baseApp') );
-      }
+      
 
       $catProduct = Categorie::where('status', 1)->whereNull('deleted_at')->get();
       

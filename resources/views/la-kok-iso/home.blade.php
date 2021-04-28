@@ -109,7 +109,7 @@
 									data-paddingleft="['0', '0', '0', '0']"
 									data-fontsize="26"
 									style="z-index: 5;"
-									data-transform_in="y:[-300%];opacity:0;s:500;">{{ $base['meta_keywords'] }}</div>
+									data-transform_in="y:[-300%];opacity:0;s:500;">{!! $base['meta_welcome'] !!}</div>
 
 								{{-- <div class="tp-caption text-uppercase"
 									data-x="['left','left','left','left']"
@@ -182,12 +182,15 @@
 
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-9 text-center text-lg-left">
+<!--       <div class="col-lg-9 text-center text-lg-left"> -->
+      <div class="col-lg-12 text-center text-lg-left">
         {!! $baseApp['text_showcase'] !!}
       </div>
+    {{--
       <div class="col-lg-3 text-center text-lg-right">
         <h4 class="text-4 line-height-6 font-weight-normal appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="800"><span class="opacity-6">{!! $baseApp['text_showcase2'] !!}</span></h4>
       </div>
+    --}}
       {{-- <div class="col-lg-2 text-center text-lg-right">
         <a class="btn btn-outline btn-rounded btn-primary btn-with-arrow mb-5 mb-lg-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="1100" href="#">Contact Us <span><i class="fas fa-chevron-right"></i></span></a>
       </div> --}}
@@ -199,7 +202,7 @@
       </div>
     </div>
 
-
+	{{--
     <div class="row" style="background-image: url({{ env('URL_ENDPOINT').$baseApp['bg_showcase'] }}); background-size: cover; background-position: center;">
       <div class="col">
         <div class="m-auto appear-animation img-booth w-50" data-appear-animation="fadeIn" data-appear-animation-delay="500">
@@ -218,6 +221,8 @@
         </div>
       </div>
     </div>
+  	--}}
+  
     <style>
     .img-booth .owl-carousel.nav-light.nav-style-1 .owl-nav .owl-prev {
         color : #555 !important;
@@ -396,7 +401,7 @@
       <a href="{{ route('expoproperty_front.event', ['id' => $vChunksEvent->uuid ]) }}">
         <span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
           <span class="thumb-info-wrapper">
-            <img oading="lazy" src="{{ env('URL_ENDPOINT').$vChunksEvent->img_pic }}" alt="" class="img-fluid">
+            <img loading="lazy" src="{{ env('URL_ENDPOINT').$vChunksEvent->img_pic }}" alt="" class="img-fluid" style="height:254px;" />
             <span class="thumb-info-title">
               <span class="thumb-info-inner">{{ $vChunksEvent->speaker }}</span>
               <span class="thumb-info-type">

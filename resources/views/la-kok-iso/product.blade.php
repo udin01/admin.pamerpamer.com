@@ -256,16 +256,84 @@
 								</div>
 								
 							
-								@if( Auth::check() )
+                         @if( !env('CLOSE_EVENT') )
+                            
+                            @if( Auth::check() )
 										@if( $btnApplyJob )
-											<button type="button" class="mt-4 btn btn-warning btn-lg btn-block disable" data-toggle="modal" data-target=".btnApply" onclick="gooAnalytic('modal-booth-lain')">Applay Now</button>
+                            				  @if(  Auth::user()->name == '') 
+  
+   <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field name)')">Apply Now</button>
+
+  @elseif( Auth::user()->dob == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field tgl) lahir')">Apply Now</button>
+
+  @elseif( Auth::user()->gender == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field gender)')">Apply Now</button>
+
+  @elseif( Auth::user()->telp == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field telp)')">Apply Now</button>
+
+  @elseif( Auth::user()->email == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field email)')">Apply Now</button>
+
+  @elseif( Auth::user()->cv == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field cv)')">Apply Now</button>
+
+  @elseif( Auth::user()->pasfoto == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field pasfoto)')">Apply Now</button>
+
+  @elseif( Auth::user()->institusi == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field institusi)')">Apply Now</button>
+
+  @elseif( Auth::user()->jurusan == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field jurusan)')">Apply Now</button>
+
+  @elseif( Auth::user()->prodi == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field prodi)')">Apply Now</button>
+
+  @elseif( Auth::user()->id_kualifikasi == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field kualifikasi Pendidikan)')">Apply Now</button>
+
+  @elseif( Auth::user()->status_nikah == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field status_nikah)')">Apply Now</button>
+
+  @elseif( Auth::user()->kota_asal == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field kota_asal)')">Apply Now</button>
+
+  @elseif( Auth::user()->alamat == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field alamat)')">Apply Now</button>
+
+  @elseif( Auth::user()->ipk == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field ipk)')">Apply Now</button>
+
+  @elseif( Auth::user()->tinggi == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field tinggi)')">Apply Now</button>
+
+  @elseif( Auth::user()->berat == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field berat)')">Apply Now</button>
+
+  @elseif( Auth::user()->thn_masuk == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field thn_masuk)')">Apply Now</button>
+
+  @elseif( Auth::user()->thn_lulus == '') 
+  <button type="button" class="mt-4 btn btn-danger btn-lg btn-block disable" onclick="alert('Silahkan Lengkapi dahulu data lamaran anda di menu my account, (field thn_lulus) ')">Apply Now</button>
+  
+  @else
+  <button type="button" class="mt-4 btn btn-warning btn-lg btn-block disable" data-toggle="modal" data-target=".btnApply" onclick="gooAnalytic('modal-booth-lain')">Apply Now</button>
+
+                            				@endif
 											{{-- btn-quaternary --}}
 										@else
 											<span type="button" class="mt-4 btn btn-outline-primary btn-lg btn-block disable" href="#" >has applied</span>
 										@endif
 								@else
-									<a type="button" class="mt-4 btn btn-warning btn-lg btn-block disable" href="{{ route('expoproperty_front.login') }}" >Applay Now</a>
+									<a type="button" class="mt-4 btn btn-warning btn-lg btn-block disable" href="{{ route('expoproperty_front.login') }}" >Apply Now</a>
 								@endif
+                            
+                            @else
+<!--                             <a type="button" class="mt-4 btn btn-warning btn-lg btn-block disable" href="{{ route('expoproperty_front.login') }}" ></a> -->
+                            <span class="text-danger">The Event close at 16.00, come again tomorrow at 8.00 </span>
+                            @endif
 
 
 

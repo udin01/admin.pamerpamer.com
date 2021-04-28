@@ -70,7 +70,7 @@
 				<input class="form-control" type="text" name="pengalaman[${$.now()}][perusahaan]" value="" placeholder="perusahan" >
 			</div>
 			<div class="col-lg-4">
-				<span><small>Lama Bekerja / <i>dari tgl - sampai tgl </i></small></span>
+				<span><small>Lama Bekerja / <i>dari Bln Thn - sampai Bln Thn </i></small></span>
 				<input class="form-control" type="text" name="pengalaman[${$.now()}][lama]" value="" placeholder="lama bekerja" >
 			</div>
 			<div class="col-lg-4">
@@ -95,7 +95,7 @@
 				<input class="form-control" type="text" name="org[${$.now()}][perusahaan]" value="" placeholder="Organisasi" >
 			</div>
 			<div class="col-lg-4">
-				<span><small>Lama / <i>dari tgl - sampai tgl </i></small></span>
+				<span><small>Lama / <i>dari Bln Thn - sampai Bln Thn </i></small></span>
 				<input class="form-control" type="text" name="org[${$.now()}][lama]" value="" placeholder="lama " >
 			</div>
 			<div class="col-lg-4">
@@ -134,6 +134,9 @@
 		<div class="row">
 			<div class="col-md-12 align-self-center p-static order-2 text-center">
 				<h1 class="text-dark text-8"> Akun Saya </h1>
+            
+<!--             <span>{!! $base['meta_welcome'] !!}</span> -->
+            
 			</div>
 		</div>
 	</div>
@@ -394,17 +397,34 @@
 				<div class="rowPengalamanHead">
 					@foreach ( $pengalaman as $pengalaman_key => $pengalaman_v )
 							<div class="form-group row rowPengalaman rowPengalaman-{{$pengalaman_key}} ">
+                            	@php
+                                	try {
+                        				$lamaPngalamanV = $pengalaman_v->lama;
+                    				} catch (\Throwable $th) {
+                                		$lamaPngalamanV = '';
+                                	}
+                                	try {
+                                		$posisiPngalamanV = $pengalaman_v->posisi;
+                    				} catch (\Throwable $th) {
+                                		$posisiPngalamanV = '';
+                                	}
+                            		try {
+                                		$perusahaanPngalamanV = $pengalaman_v->perusahaan;
+                    				} catch (\Throwable $th) {
+                                		$perusahaanPngalamanV = '';
+                                	}
+                                @endphp
 								<div class="col-lg-4">
 									<span><small>Perusahaan</small></span>
-									<input class="form-control" type="text" name="pengalaman[{{$pengalaman_key}}][perusahaan]" value="{{$pengalaman_v->perusahaan}}" placeholder="perusahan" >
+									<input class="form-control" type="text" name="pengalaman[{{$pengalaman_key}}][perusahaan]" value="{{$perusahaanPngalamanV }}" placeholder="perusahan" >
 								</div>
 								<div class="col-lg-4">
-									<span><small>Lama Bekerja / <i>dari tgl - sampai tgl </i></small></span>
-									<input class="form-control" type="text" name="pengalaman[{{$pengalaman_key}}][lama]" value="{{$pengalaman_v->lama}}" placeholder="lama bekerja" >
+									<span><small>Lama Bekerja / <i>dari Bln Thn - sampai Bln Thn </i></small></span>
+									<input class="form-control" type="text" name="pengalaman[{{$pengalaman_key}}][lama]" value="{{$lamaPngalamanV }}" placeholder="lama bekerja" >
 								</div>
 								<div class="col-lg-4">
 									<span><small>Posisi</small></span>
-									<input class="form-control" type="text" name="pengalaman[{{$pengalaman_key}}][posisi]" value="{{$pengalaman_v->posisi}}" placeholder="posisi jabatan" >
+									<input class="form-control" type="text" name="pengalaman[{{$pengalaman_key}}][posisi]" value="{{ $posisiPngalamanV }}" placeholder="posisi jabatan" >
 									
 									<span class="float-right m-1">
 									<btn class="btn btn-xs btn-danger btn-round" onclick="$('.rowPengalaman-{{$pengalaman_key}}').remove();"><b>-</b></btn>
@@ -433,17 +453,34 @@
 				<div class="rowOrgHead">
 					@foreach ( $org as $org_key => $org_v )
 							<div class="form-group row rowPengalaman rowPengalaman-{{$org_key}} ">
+                           		 @php
+                                	try {
+                        				$lamaOrgV = $org_v->lama;
+                    				} catch (\Throwable $th) {
+                                		$lamaOrgV = '';
+                                	}
+                                	try {
+                                		$posisiOrgV = $org_v->posisi;
+                    				} catch (\Throwable $th) {
+                                		$posisiOrgV = '';
+                                	}
+                            		try {
+                                		$perusahaanOrgV = $org_v->perusahaan;
+                    				} catch (\Throwable $th) {
+                                		$perusahaanOrgV = '';
+                                	}
+                                @endphp
 								<div class="col-lg-4">
 									<span><small>Perusahaan</small></span>
-									<input class="form-control" type="text" name="pengalaman[{{$org_key}}][perusahaan]" value="{{$org_v->perusahaan}}" placeholder="perusahan" >
+									<input class="form-control" type="text" name="org[{{$org_key}}][perusahaan]" value="{{$perusahaanOrgV }}" placeholder="perusahan" >
 								</div>
 								<div class="col-lg-4">
-									<span><small>Lama Bekerja / <i>dari tgl - sampai tgl </i></small></span>
-									<input class="form-control" type="text" name="pengalaman[{{$org_key}}][lama]" value="{{$org_v->lama}}" placeholder="lama bekerja" >
+									<span><small>Lama Bekerja / <i>dari Bln Thn - sampai Bln Thn </i></small></span>
+									<input class="form-control" type="text" name="org[{{$org_key}}][lama]" value="{{$lamaOrgV}}" placeholder="lama bekerja" >
 								</div>
 								<div class="col-lg-4">
 									<span><small>Posisi</small></span>
-									<input class="form-control" type="text" name="pengalaman[{{$org_key}}][posisi]" value="{{$org_v->posisi}}" placeholder="posisi jabatan" >
+									<input class="form-control" type="text" name="org[{{$org_key}}][posisi]" value="{{$posisiOrgV}}" placeholder="posisi jabatan" >
 									
 									<span class="float-right m-1">
 									<btn class="btn btn-xs btn-danger btn-round" onclick="$('.rowPengalaman-{{$org_key}}').remove();"><b>-</b></btn>
@@ -489,16 +526,38 @@
 				@foreach ( $jobSave as $jobS ) 
 					<tr>
 						<td>
-								<a href="{{ route('expoproperty_front.product', ['id' => $jobS->job->uuid]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
-									{{ $jobS->job->name }} 
+                         @php 
+                        	$uuidJobS = '';
+                        	$nameJobS = '';
+                        	$companyJobS = '';
+                        	$companyUuidJobS = '';
+                        	$penempatanJobS = '';
+                        
+                            try {
+                        		$uuidJobS = $jobS->job->uuid;
+            				} catch (\Throwable $th) {}
+                        	
+                        	try {
+                        		$nameJobS = $jobS->job->name;
+            				} catch (\Throwable $th) {}
+                        
+                       		try {
+                        		$companyJobS = $jobS->job->company->name;
+                        		$companyUuidJobS = $jobS->job->company->uuid;
+                        		$penempatanJobS = $jobS->job->penempatan;
+            				} catch (\Throwable $th) {}
+                        
+                        @endphp 
+								<a href="{{ route('expoproperty_front.product', ['id' => $uuidJobS]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+									{{ $nameJobS }} 
 								</a>
 							<small><b>
-								<a href="{{ route('expoproperty_front.dev', ['id' => $jobS->job->company->uuid]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
-									{{ $jobS->job->company->name }}
+								<a href="{{ route('expoproperty_front.dev', ['id' => $companyUuidJobS ]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+									{{ $companyJobS }}
 								</a>
 							</b></small>
 						</td>
-						<td>{{ $jobS->job->penempatan }}</td>
+						<td>{{ $penempatanJobS }}</td>
 						{{-- <td>Rp. 5 - 10 Juta</td> --}}
 						{{-- <td>Open</td> --}}
 						<td>
@@ -543,16 +602,38 @@
 					@foreach ( $jobApply as $jobA_key => $jobA) 
 					<tr>
 						<td>
-								<a href="{{ route('expoproperty_front.product', ['id' => $jobA->job->uuid]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
-									{{ $jobA->job->name }} 
+                        @php 
+                        	$uuidJob = '';
+                            try {
+                        		$uuidJob = $jobA->job->uuid;
+            				} catch (\Throwable $th) {}
+                        	
+                        	$nameJobA = '';
+                        	$companyJobA = '';
+                        	$companyUuidJobA = '';
+                        	$penempatanJobA = '';
+                        
+                        	
+                        	try {
+                        		$nameJobA = $jobA->job->name;
+            				} catch (\Throwable $th) {}
+                        
+                       		try {
+                        		$companyJobA = $jobA->job->company->name;
+                        		$companyUuidJobA = $jobA->job->company->uuid;
+                        		$penempatanJobA = $jobA->job->penempatan;
+            				} catch (\Throwable $th) {}
+                        @endphp 
+								<a href="{{ route('expoproperty_front.product', ['id' => $uuidJob]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+									{{ $nameJobA }} 
 								</a>
 							<small><b>
-								<a href="{{ route('expoproperty_front.dev', ['id' => $jobA->job->company->uuid]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
-									{{ $jobA->job->company->name }}
+								<a href="{{ route('expoproperty_front.dev', ['id' => $companyUuidJobA ]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+									{{ $companyJobA }}
 								</a>
 							</b></small>
 						</td>
-						<td>{{ $jobA->job->penempatan }}</td>
+						<td>{{ $penempatanJobA }}</td>
 						
 						<td>
 							<small>{!! \Carbon\Carbon::parse($jobA->updated_at)->format("M d, Y") !!}</small>
@@ -668,7 +749,7 @@
 				</div>	
 			<form role="form" class="needs-validation" action="{{ route('expoproperty_front.uploadcv') }}" method="POST" enctype="multipart/form-data">
 				<div class="form-group row">
-					<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">upload Resume</label>
+					<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">upload Resume <br/><small>(ukuran max 2 Mb. )</small> </label>
 					<div class="col-lg-9">
 						<input type="file" name="cv" value="" >
 					</div>

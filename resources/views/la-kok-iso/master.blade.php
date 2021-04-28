@@ -148,7 +148,12 @@
 													Home
 												</a>
 											</li>
-                      <li>
+                                         	<li>
+												<a class="nav-link font-weight-semibold" data-hash href="{{ route('expoproperty_front.event') }}">
+													Events
+												</a>
+											</li>
+                      						<li>
 												<a class="nav-link font-weight-semibold" data-hash href="{{ route('expoproperty_front.regionalSlug') }}">
 													List Jobs
 												</a>
@@ -324,6 +329,26 @@
 
   <!-- Theme Initialization Files -->
   <script src="{{ asset('onefamily/js/theme.init.js')}}"></script>
+	{{-- 	{{ $base['wa_cs'] || '+628573043874200' }} --}}
+	<a class="visible" href="https://wa.me/+6281259619392?text=hallo%20kakak%20bisa%20dibantu%20donk" 
+       target="_blank" style="transition: opacity 0.3s;
+    background: #2f9f5e;
+    border-radius: 4px 4px 0 0;
+    bottom: 0;
+    color: #FFF;
+    display: block;
+    height: 9px;
+    opacity: 0.75;
+    padding: 10px 10px 35px;
+    position: fixed;
+    left: 10px;
+    text-align: center;
+    text-decoration: none;
+    min-width: 50px;
+    z-index: 1040;
+    font-size: 2em;">
+    <i class="fab fa-whatsapp"></i> <span style="font-size: 0.5em;">Cs</span>
+	</a>
 
 @if ( env('GOOGLE_TAG', false) )
   <!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.

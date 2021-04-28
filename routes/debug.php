@@ -26,10 +26,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'as' => 'expoproperty_front.home',
             'uses' => 'HomeController@getHome',
         ]);
-        */
         Route::get('/debugJson/{slug?}', [
             'as' => 'expoproperty_front.debugJson',
             'uses' => 'debugController@getdebugJson',
         ]);
+        */
 
 });

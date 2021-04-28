@@ -57,7 +57,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         ]);
 
 
-        Route::get('/job/{id}', [
+        Route::get('/job/{id?}', [
             'as' => 'expoproperty_front.product',
             'uses' => 'HomeController@getProduct',
         ]);

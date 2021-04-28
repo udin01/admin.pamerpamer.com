@@ -209,6 +209,7 @@ class AuthController extends BaseController
             return response()->json(['response' => 'success']);
             
         } catch (\Throwable $th) {
+        	actGuest(' { "daftar salah": "'. json_encode($request->all()).'"}' );
             Log::error($th);
             return response()->json(['response' => 'error', 'errorMessage'=> 'Maaf terjadi Kesalahan dalam system']);
         }
@@ -229,6 +230,7 @@ class AuthController extends BaseController
     public function postLogin(Request $request){
         
         if( !$request->email || !$request->password ){
+        	actGuest(' { "upaya masuk": "'. json_encode($request->all()).'"}' );
             // return response()->json(['response' => 'error', 'errorMessage'=> 'Email dan password Kosong' ]);
             return redirect()->back()->with(['msg' => 'Email dan password Kosong']);
         }
@@ -237,11 +239,13 @@ class AuthController extends BaseController
         $user = \App\Models\JobfairUser::where('email', $request->email)->first();
 
         if(!$user){
+        	actGuest(' { "upaya masuk": "'. json_encode($request->all()).'"}' );
             // return response()->json(['response' => 'error', 'errorMessage'=> 'User Belum Terdaftar']);
             return redirect()->back()->with(['msg' => 'User Belum Terdaftar']);
         }
 
         if ( !Hash::check( $request->password, $user->password )) {
+        	actGuest(' { "upaya masuk": "'. json_encode($request->all()).'"}' );
             // return response()->json(['response' => 'error', 'errorMessage'=> 'Password salah']);
             return redirect()->back()->with(['msg' => 'Password salah']);
         }
@@ -282,7 +286,7 @@ class AuthController extends BaseController
                 try {
                     $otp = rand(100000,999999);
 
-                    $text = "JANGAN BERITAHU KODE RAHASIA KE SIAPA PUN termasuk pihak Pamerpamer[dot]com . Kode Rahasia untuk login ke akun pamerpamer[dot]com kamu: ".$otp.".";
+                    $text = "JANGAN BERITAHU KODE RAHASIA KE SIAPA PUN . Kode Rahasia untuk login ke akun kamu: ".$otp.".";
                     $user = new User;
                     $user->name = ucwords(strtolower($request->nama));
                     // $user->wa = strtolower($request->wa);
@@ -336,7 +340,7 @@ class AuthController extends BaseController
             // ==============
             $otp = rand(100000,999999);
 
-            $text = "JANGAN BERITAHU KODE RAHASIA KE SIAPA PUN termasuk pihak Pamerpamer[dot]com . Kode Rahasia untuk login ke akun pamerpamer[dot]com kamu: ".$otp.".";
+            $text = "JANGAN BERITAHU KODE RAHASIA KE SIAPA PUN. Kode Rahasia untuk login ke akun kamu: ".$otp.".";
             $user->otp = $otp;
             $user->save();
             

@@ -84,6 +84,7 @@
 													Speaker <a href="#">{{ $pro->speaker}}</a>
 													</span>
 												</p>
+
 												<p>
 													<a href="{{ route('expoproperty_front.event', ['id' => $pro->uuid ]) }}" class="btn btn-xs btn-light text-1 text-uppercase">Read More</a>
 												</p>
@@ -126,6 +127,12 @@
 		Speaker <a href="#">{{ $pro->speaker}}</a>
 		</span>
 	</p>
+    <hr/>
+    <hr/>
+   <p>{!! $pro->desc !!}</p>
+	
+<!--     <pre style="font-size: inherit;color: inherit;font-family: inherit;">{{ $pro->desc }}</pre> -->
+
 
 @endif
 @endforeach

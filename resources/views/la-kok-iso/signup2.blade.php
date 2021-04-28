@@ -58,7 +58,7 @@
       <form class="contact-form" action="{{ route('expoproperty_front.post-signup') }}" method="POST">
         @csrf
         <div class="contact-form-success alert alert-success d-none mt-4">
-          <strong>Success!</strong> User Success Create, check Email.
+          <strong>Success!</strong> User Success Create, Login with you Email & password.
         </div>
 
         <div class="contact-form-error alert alert-danger d-none mt-4">
