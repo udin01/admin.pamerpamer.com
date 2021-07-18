@@ -120,7 +120,7 @@
 							<div class="header-row pr-4">
 								<div class="header-logo">
 									<a href="{{ route('expoproperty_front.home') }}">
-										<img alt="{{ url('/') }}" width="170" height="48" data-sticky-width="140" data-sticky-height="40" src="{{ env('URL_ENDPOINT').$base['logo_dark'] }}">
+										<img alt="{{ url('/') }}" width="170" height="auto" data-sticky-width="140" data-sticky-height="auto" src="{{ env('URL_ENDPOINT').$base['logo_dark'] }}">
 									</a>
 								</div>
 							</div>
@@ -131,15 +131,31 @@
 									<div class="header-nav-main header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
 										<nav class="collapse header-mobile-border-top">
 											<ul class="nav nav-pills" id="mainNav">
-												<li class="dropdown">
+												<li>
 													<a class="dropdown-item dropdown-toggle active" href="{{ route('expoproperty_front.home') }}">Home</a>
 												</li>
-												<li><a class="dropdown-item" href="{{ route('expoproperty_front.kategoriProduct') }}">Semua Produk</a></li>
-												<li><a class="dropdown-item" href="{{ route('expoproperty_front.klaimPromo') }}">Promo</a></li>
+												{{-- <li><a class="dropdown-item" href="{{ route('expoproperty_front.kategoriProduct') }}">Cari Prodi</a></li> --}}
+												<li class="dropdown">
+                          <a class="dropdown-item dropdown-toggle" href="#">List Kampus</a>
+                          <ul class="dropdown-menu">
+                            @foreach ( $base['perumahan'] as $KeyDev => $VDev)
+															<li>
+																<a class="dropdown-item" href="{{ route('expoproperty_front.dev', ['id' => $VDev->uuid ]) }}"> {{$VDev->name}} </a>
+															</li>
+                            @endforeach
+                          </ul>
+                        </li>
+
+
+												<li><a class="dropdown-item" href="https://pamerpamer.com/blogs">Artikel</a></li>
+												{{-- <li><a class="dropdown-item" href="{{ route('expoproperty_front.klaimPromo') }}">Promo</a></li> --}}
 												<li><a class="dropdown-item" href="{{ route('expoproperty_front.event') }}">Event</a></li>
+
+                        @if( Auth::check() )
 												<li><a class="dropdown-item" href="{{ route('expoproperty_front.myAccount') }}">Akun Anda</a></li>
 												<li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-												</li>
+												@endif
+                        
 											</ul>
 										</nav>
 									</div>
@@ -213,7 +229,8 @@
 							@endphp
 							@foreach ($sosmed_arr as $keySosmed => $sosmed)
 								@if ($sosmed)
-                  <li class="social-icons-{!! strtolower($keySosmed) !!}"><a href="http://{{ $keySosmed }}.com/{!! $sosmed !!}" target="_blank" title="{!! strtolower($keySosmed) !!}"><i class="fab fa-{!! strtolower($keySosmed) !!} fa-3x"></i></a></li>
+                  <li class="social-icons-{!! strtolower($keySosmed) !!}">
+                  <a style="border:none;" href="http://{{ $keySosmed }}.com/{!! $sosmed !!}" target="_blank" title="{!! strtolower($keySosmed) !!}"><i class="fab fa-{!! strtolower($keySosmed) !!} fa-3x"></i></a></li>
 								@endif
               @endforeach
 
@@ -224,15 +241,27 @@
 			<div class="footer-copyright footer-copyright-style-2">
 				<div class="container py-2">
 					<div class="row py-4">
-						<div class="col-lg-8 text-center text-lg-left mb-2 mb-lg-0">
+						<div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
 							<p>
-								<span class="pr-0 pr-md-3 d-block d-md-inline-block"><i class="far fa-dot-circle text-color-primary top-1 p-relative"></i><span class="text-color-light opacity-7 pl-1">1234 Street Name, City Name</span></span>
-								<span class="pr-0 pr-md-3 d-block d-md-inline-block"><i class="fab fa-whatsapp text-color-primary top-1 p-relative"></i><a href="tel:1234567890" class="text-color-light opacity-7 pl-1">(800) 123-4567</a></span>
-								<span class="pr-0 pr-md-3 d-block d-md-inline-block"><i class="far fa-envelope text-color-primary top-1 p-relative"></i><a href="mailto:mail@example.com" class="text-color-light opacity-7 pl-1">mail@example.com</a></span>
+								@if( isset($baseApp['alamat']) ) 
+                <span class="pr-0 pr-md-3 d-block d-md-inline-block"><i class="far fa-dot-circle text-color-primary top-1 p-relative"></i><span class="text-color-light opacity-7 pl-1">{{ $baseApp['alamat'] ?? '' }}</span></span>
+                @endif
+
+								@if($baseApp['telp'])
+                <span class="pr-0 pr-md-3 d-block d-md-inline-block"><i class="fab fa-whatsapp text-color-primary top-1 p-relative"></i><a href="tel:{{ $baseApp['telp'] }}" class="text-color-light opacity-7 pl-1">{{ $baseApp['telp'] }}</a></span>
+                @endif
+
+								@if($baseApp['email'])
+                <span class="pr-0 pr-md-3 d-block d-md-inline-block"><i class="far fa-envelope text-color-primary top-1 p-relative"></i><a href="mailto:{{ $baseApp['email'] }}" class="text-color-light opacity-7 pl-1">{{ $baseApp['email'] }}</a></span>
+                @endif
+
 							</p>
 						</div>
-						<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end mb-4 mb-lg-0 pt-4 pt-lg-0">
-							<p>© {{ Carbon\Carbon::now()->format('Y') }} {{ env('APP_NAME') }}.</p>
+						<div class="col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end mb-4 mb-lg-0 pt-4 pt-lg-0">
+							<p>
+                © {{ Carbon\Carbon::now()->format('Y') }} <a href="https://radarmalang.jawapos.com" > Radar Malang - Jawapos</a> </br>
+                Support by: <a href="https://malangweb.com/scan-me/pamerpamer" >Digital Indonesia Network.</a>
+							</p>
 						</div>
 					</div>
 				</div>

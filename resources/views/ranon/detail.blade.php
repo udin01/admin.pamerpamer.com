@@ -349,7 +349,7 @@ input[type="checkbox"], input[type="radio"] {
                   <button class="btn btn-lg btn-block btn-danger" onclick="window.open('{{ $baseApp['url_form_kredit'] }}');gooAnalytic('eform-bni-direct');">AJUKAN PEMOHON BNI GRIYA</button>
                   <br/>
 
-                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth developer lain</button>
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth kampus lain</button>
 
                   <div class="col-sm-12 wow fadeIn pt-5">
                         <h6 class="text-center"><b>Event Pamerpamer.com</b></h6>

@@ -22,11 +22,11 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
 
 <div class="container py-5 mt-3 ">
     <div class="row align-items-center justify-content-center" style="margin-bottom: 8em;">
-      <div class="col-lg-6 mb-5 mb-lg-0">
+      <div class="col-lg-6 mb-0 mb-lg-0">
         <div class="position-relative">
-          <div class="custom-shape-1 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="500">
+          {{-- <div class="custom-shape-1 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="500">
             <div class="position-absolute top-0 left-0 right-0 bottom-0 bg-primary" data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 0.1, 'transition': true, 'transitionDuration': 400, 'isInsideSVG': true}"></div>
-          </div>
+          </div> --}}
           <div data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 0.3, 'transition': true, 'transitionDuration': 600, 'isInsideSVG': true}">
           
           {{-- Video --}}
@@ -55,7 +55,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                   }
                   
                   if( !substr_count( $videoProfile, "<iframe") ){
-                     $videoProfile = '<iframe id="profileVideo_dev" src="'.$videoProfile .'?enablejsapi=1&autoplay=1&controls=0&showinfo=0&rel=0&loop=1" frameborder="0" name="youtube embed" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                     $videoProfile = '<iframe id="profileVideo_dev" src="'.$videoProfile .'?enablejsapi=1&autoplay=1&controls=1&showinfo=0&rel=0&loop=1" frameborder="0" name="youtube embed" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                   }
                @endphp
                
@@ -88,13 +88,18 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                   <h2 class="text-header">{{ $perumahan->name }}</h2>
                      <p class="text-header">{{ $perumahan->prolog }}</p>
                      <div>
+
+                     <hr/>
+                     <p class="text-header text-dark mb-2">Kunjungi Sosmed official Kami</p>
                      @foreach ( $sosmed as $keySosmed  => $sosKey )
                         @php
                            $logo = strtolower($keySosmed);
+                           $title = $sosKey;
                            $url="javascript:void(0);";
                            switch ($logo) {
                               case 'ig':
                                  $logo = 'fab fa-instagram';
+                                 $title = 'Instagram';
                                  if( substr_count( $sosKey, "instagram.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -108,6 +113,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
 
                               case 'instagram':
                                  $logo = 'fab fa-instagram';
+                                 $title = 'Instagram';
                                  if( substr_count( $sosKey, "instagram.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -120,7 +126,8 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
 
                               case 'fb':
-                                 $logo = 'fab fa-facebook-official';
+                                 $logo = 'fab fa-facebook';
+                                 $title = 'Facebook';
                                  if( substr_count( $sosKey, "facebook.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -129,26 +136,54 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                                  break;
                                  
                               case 'facebook':
-                                 $logo = 'fab fa-facebook-official';
+                                 $logo = 'fab fa-facebook';
+                                 $title = 'Facebook';
                                  if( substr_count( $sosKey, "facebook.com") ){
                                     $url = $sosKey;
                                  } else {
                                     $url = 'https://www.facebook.com/search/top/?q='.$sosKey.'&opensearch=1';
                                  }
                                  break;
+
+                              case 'telp':
+                                 $logo = 'fas fa-phone-square-alt';
+                                 $url = 'tel:'.$sosKey;
+                                 $title = 'Phone';
+                                 break;
+                              
+                              case 'phone':
+                                 $logo = 'fas fa-phone-square-alt';
+                                 $url = 'tel:'.$sosKey;
+                                 $title = 'Phone';
+                                 break;
+
+                              case 'youtube':
+                                 $logo = 'fab fa-youtube';
+                                 $url = $sosKey;
+                                 $title = 'Youtube';
+                                 break;
+                              
+                              case 'yt':
+                                 $logo = 'fab fa-youtube';
+                                 $title = 'Youtube';
+                                 $url = $sosKey;
+                                 break;
                                  
                               case 'web':
-                                 $logo = 'fab fa-globe';
+                                 $logo = 'fas fa-globe';
+                                 $title = 'Website';
                                  $url = $sosKey;
                                  break;
 
                               case 'website':
-                                 $logo = 'fab fa-globe';
+                                 $logo = 'fas fa-globe';
+                                 $title = 'Website';
                                  $url = $sosKey;
                                  break;
 
                               case 'twitter':
                                  $logo = 'fab fa-twitter';
+                                 $title = 'Twitter';
                                  if( substr_count( $sosKey, "twitter.com") ){
                                     $url = $sosKey;
                                  } else {
@@ -158,6 +193,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
 
                               case 'email':
                                  $logo = 'fab fa-envelope';
+                                 $title = 'Email';
                                  break;
 
                               default:
@@ -166,8 +202,9 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                               }
                         @endphp
                          <a href="{{ $url }}" class="text-success" target="_blank" onclick="gooAnalytic({'{{ $logo }}': '{{ $url }}' })">
-                           <h5 class="py-1 my-0 text-header">
-                              <i class="{{ $logo }} fa-1x"></i>&nbsp;&nbsp;&nbsp;{{ $sosKey }}
+                           <h5 class="py-1 my-0 text-header" style="text-transform: none;">
+                              {{-- <i class="{{ $logo }} fa-1x"></i>&nbsp;&nbsp;&nbsp;{{ $sosKey }} --}}
+                              <i class="{{ $logo }} fa-1x"></i>&nbsp;&nbsp;&nbsp;{{ $title }}
                            </h5>
                          </a>
                          {{-- &nbsp;&nbsp; --}}
@@ -202,14 +239,128 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
          
          <hr/>
          <div class="row">
-               <div class="col-lg-9 wow fadeIn">
-                  {!! $perumahan->desc !!}
-               </div>
-                  <!-- end col-5 -->
-               <div class="col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+            <div class="col-lg-9 wow fadeIn">
+               {!! $perumahan->desc !!}
+                  
+               
+                  {{-- Image  --}}
+                     <div class="row p-4">
+                           @php
+                              $img_list = ($perumahan->img_list) ? json_decode($perumahan->img_list) : [];
+                              $img_list = ($img_list) ? $img_list : [];
+                           @endphp
+                        @foreach ( $img_list as $kList => $list )
+                           {{-- <a href="{{ env('URL_ENDPOINT').$list->img }}" data-fancybox>
+                              <li class="wow fadeIn mt-3" data-wow-delay="0.4s">
+                                    <figure>
+                                       <figcaption class="pt-0 px-0">
+                                          <img loading="lazy" src="{{ env('URL_ENDPOINT').$list->img }}" alt="{{ $perumahan->name }}">
+                                          <small class="pt-2">{{ $list->description ?? $perumahan->name }}</small>
+                                       </figcaption>
+                                    </figure>
+                              </li>
+                           </a> --}}
+                           	<div class="col-lg-3">
+											<a class="img-thumbnail d-block lightbox" href="{{ env('URL_ENDPOINT').$list->img }}" data-plugin-options="{'type':'image'}">
+												<img class="img-fluid" src="{{ env('URL_ENDPOINT').$list->img }}" alt="-">
+                                    <span class="zoom">
+													<i class="fas fa-search"></i>
+												</span>
+											</a>
+                                 <h6 class="text-uppercase"><small>{{ $list->description ?? $perumahan->name }}</small></h6>
+										</div>
+                        @endforeach
+                     </div>
+                     <!-- end container -->
+                  
+                  {{-- ./Image  --}}
+            </div>
+
+            
+            <div class="col-lg-3 wow fadeIn" data-wow-delay="0.1s">
                {{-- @if($_SERVER['REMOTE_ADDR'] === '202.80.216.49' )
                      @dump( $perumahan->marketing )
                @endif --}}
+               <a class="img-thumbnail img-thumbnail-no-borders d-block lightbox text-center" href="{{ env('URL_ENDPOINT').$perumahan->img_pic }}" data-plugin-options="{'type':'image'}">
+                  <img class="img-fluid" src="{{ env('URL_ENDPOINT').$perumahan->img_pic }}" alt="-">
+                  <span class="zoom">
+                     <i class="fas fa-search"></i>
+                  </span>
+               </a>
+
+
+               <div class="d-flex align-items-center mt-4">
+                  <ul class="social-icons social-icons-medium social-icons-clean-with-border social-icons-clean-with-border-border-grey social-icons-clean-with-border-icon-dark mr-3 mb-0">
+                     <!-- Facebook -->
+                     <li> <b> Share : </b> </li>
+                     <li class="social-icons-facebook">
+                        <a href="http://www.facebook.com/sharer.php?u={{ url()->full() }}" target="_blank" data-toggle="tooltip" data-placement="top" title="Share On Facebook">
+                           <i class="fab fa-facebook-f"></i>
+                        </a>
+                     </li>
+                     <!-- Google+ -->
+                     <li class="social-icons-googleplus">
+                        <a href="https://plus.google.com/share?url={{ url()->full() }}" target="_blank" data-toggle="tooltip" data-placement="top" title="Share On Google+">
+                           <i class="fab fa-google-plus-g"></i>
+                        </a>
+                     </li>
+                     <!-- Twitter -->
+                     <li class="social-icons-twitter">
+                        <a href="https://twitter.com/share?url={{ url()->full() }}&amp;text={{ env('APP_NAME') }}&amp;hashtags={{ env('APP_NAME') }}" target="_blank" data-toggle="tooltip" data-placement="top" title="Share On Twitter">
+                           <i class="fab fa-twitter"></i>
+                        </a>
+                     </li>
+                     <!-- Email -->
+                     <li class="social-icons-email">
+                        <a href="mailto:?Subject=Share This Page&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 {{ url()->full() }}" data-toggle="tooltip" data-placement="top" title="Share By Email">
+                           <i class="far fa-envelope"></i>
+                        </a>
+                     </li>
+                  </ul>
+                  {{-- <a href="#" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold text-2">
+                     <i class="far fa-heart mr-1"></i> SAVE TO WISHLIST
+                  </a> --}}
+               </div>
+
+               <hr/>
+               
+               <div class="col">
+               @if( isset($perumahan->link_360) && $perumahan->link_360)
+                  {{-- <a href="{{ $perumahan->link_360 }}" target="_blank" type="button" class="btn btn-success btn-lg btn-block text-dark">
+                           <small>Tour 360°</small>
+                  </a> --}}
+                  <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target=".model360" onclick="gooAnalytic('tour-360')">Tour 360°</button>
+               @endif
+
+               @if( isset($perumahan->link_browsur) && $perumahan->link_browsur)
+                  <a href="{{ $perumahan->link_browsur }}" target="_blank" type="button" class="btn btn-success btn-lg btn-block">
+                     Ambil Brosur
+                  </a>
+               @endif
+               </div>
+               
+               <hr/>
+               
+               <div class="col">
+               @if( isset($perumahan->telp) && $perumahan->telp)
+                  <a href="{{ $perumahan->telp }}" target="_blank" type="button" class="btn btn-warning btn-lg btn-block">
+                     Hubungi Kami 1
+                  </a>
+               @endif
+
+               @if( isset($perumahan->telp_2) && $perumahan->telp_2)
+                  <a href="{{ $perumahan->telp_2 }}" target="_blank" type="button" class="btn btn-warning btn-lg btn-block">
+                     Hubungi Kami 2
+                  </a>
+               @endif
+
+               @if( isset($perumahan->link_other) && $perumahan->link_other)
+                  <a href="{{ $perumahan->link_other }}" target="_blank" type="button" class="btn btn-warning btn-lg btn-block">
+                     Daftar PMB Disini
+                  </a>
+               @endif
+               </div>
+               
                @if( $perumahan->marketing && count($perumahan->marketing) !== 0 )
                   @foreach ( $perumahan->marketing as $keySales => $sales )
                      @if($sales->telp)
@@ -219,7 +370,11 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                         </a>
                      @endif
                      @if($sales->wa)
-                        <a href="https://wa.me/{{ $sales->wa }}?text={{  urlencode(env('TEXT_WA', 'Helo')) }}" target="_blank" type="button" class="btn btn-success btn-lg btn-block btn-sm" onclick="gooAnalytic({'wa': '{{ $sales->wa }}' })">
+                        @php
+                           $wa = str_replace(" ","", str_replace("-","", $sales->wa ) );
+                        @endphp
+
+                        <a href="https://wa.me/{{ $wa }}?text={{  urlencode(env('TEXT_WA', 'Helo')) }}" target="_blank" type="button" class="btn btn-success btn-lg btn-block btn-sm" onclick="gooAnalytic({'wa': '{{ $sales->wa }}' })">
                               <i class="fa fa-whatsapp"></i>
                               {{ $sales->wa }} <small><i>({{ $sales->name }})</i></small>
                         </a>
@@ -235,7 +390,11 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                            </a>
                         @endif
                         @if($sales2->wa)
-                           <a href="https://wa.me/{{ $sales2->wa }}?text=Hello" target="_blank" type="button" class="btn btn-success btn-lg btn-block btn-sm" onclick="gooAnalytic({'wa': '{{ $sales2->wa }}' })">
+                           @php
+                              $wa = str_replace(" ","", str_replace("-","", $sales2->wa ) );
+                           @endphp
+
+                           <a href="https://wa.me/{{ $wa }}?text=Hello" target="_blank" type="button" class="btn btn-success btn-lg btn-block btn-sm" onclick="gooAnalytic({'wa': '{{ $sales2->wa }}' })">
                                  <i class="fa fa-whatsapp"></i>
                                  {{ $sales2->wa }} <small><i>({{ $sales2->name }})</i></small>
                            </a>
@@ -243,27 +402,167 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                      @endforeach
                   @endif
                @endif
-                  <hr/>
-                  
-                  @if($perumahan->brosur)
-                  <div class="col-md-12 row" style="text-align: center;margin: auto;">
-                     <a href="{{ route('expoproperty_front.viewBrowsur', ['id' => $perumahan->uuid ]) }}" target="_blank" type="button" class="btn btn-warning btn-lg w-100 col-5 mx-1">
-                              <small>view Brosur</small>
-                     </a>
-                     <a href="{{ route('expoproperty_front.downloadBrowsur', ['id' => $perumahan->uuid ]) }}" type="button" class="btn btn-danger btn-lg w-100 col-6 mx-1">
-                              <small>Download Brosur</small>
-                     </a>
-                  </div>
-                  @endif
+               <hr/>
+               
+               @if($perumahan->brosur)
+               <div class="col-md-12 row" style="text-align: center;margin: auto;">
+                  <a href="{{ route('expoproperty_front.viewBrowsur', ['id' => $perumahan->uuid ]) }}" target="_blank" type="button" class="btn btn-warning btn-lg w-100 col-5 mx-1">
+                           <small>view Brosur</small>
+                  </a>
+                  <a href="{{ route('expoproperty_front.downloadBrowsur', ['id' => $perumahan->uuid ]) }}" type="button" class="btn btn-danger btn-lg w-100 col-6 mx-1">
+                           <small>Download Brosur</small>
+                  </a>
+               </div>
+               @endif
 
-                  <br/>
-                  <br/>
+               <br/>
+               <br/>
+            </div>
+         </div>
+            
+         <div class="row">
+               <div class="col-lg-9 wow fadeIn">
+
+                  
+                  <div class="fadeIn">
+                     <div class="map" id="map">
+                        {!! $perumahan->glocation !!}
+                     </div>
+                  </div>
+                  {{-- =============================== --}}
+
+
+                  {{-- Product --}}
+                  @if($perumahan->productAll && count($perumahan->productAll) > 0 )
+                  {{-- BY CATEGORIE --}}
+
+                  <div class="container py-2">
+                     <div class="row">
+                        <div class="col text-left">
+                           <h4>Fakultas :</h4>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        {{-- <div class="col">
+                           <div class="owl-carousel owl-theme stage-margin" data-plugin-options="{'items': 4, 'margin': 5, 'loop': false, 'nav': true, 'dots': false, 'stagePadding': 40}"> --}}
+                              
+                              @foreach ( $perumahan->productAll()->groupBy('categorie_product_id')->get() as $catprod )
+                              
+                                 @php
+                                    $catId = isset($catprod->cat->id ) ? $catprod->cat->id  : '';
+                                 @endphp
+                                 
+                                 @if($catId)
+                                 {{-- <div>
+                                    <div class="portfolio-item"> --}}
+                                    <div class="portfolio-item col-md-3 py-3">
+                                       {{-- <a href="{{ route('expoproperty_front.product', ['id' => $catprod->uuid ]) }}"> --}}
+                                       <a href="javascript:void(0);" data-toggle="modal" data-target=".model_fakultas_{{ $catId }}" onclick="gooAnalytic('click-cat-{{ $catId }}')">
+
+                                          <span class="thumb-info thumb-info-lighten border-radius-0">
+                                             <span class="thumb-info-wrapper border-radius-0">
+                                                <img src="{{ env('URL_ENDPOINT').$catprod->img_pic }}" class="img-fluid border-radius-0" alt="{{ $catprod->name }}">
+                                                {{-- <img src="{{ env('URL_ENDPOINT').$catprod->klinik->img_pic }}" class="img-fluid border-radius-0" alt="{{ $catprod->cat->name ?? '' }}"> --}}
+                                                <span class="thumb-info-title text-center" style="background: none;position: unset;">
+                                                   {{-- <span class="thumb-info-inner"  style="line-height: 85%;">
+                                                      {{-!- <small>{{ $catprod->name }}</small>
+                                                      <small>{{ $catprod->cat->name ?? '' }}</small> -!-}}
+                                                      <small>{{ $catprod->klinik->name ?? '' }}</small>
+                                                   </span> --}}
+                                                   {{-- <span class="thumb-info-type"  style="line-height: normal;">{{ $catprod->klinik->name ?? '' }}</span> --}}
+                                                   <span class="thumb-info-type text-center"  style="line-height: normal;width: 100%;padding-bottom: 20px;">{{ $catprod->cat->name ?? ''}}</span>
+                                                </span>
+                                                <span class="thumb-info-action">
+                                                   <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-eye"></i></span>
+                                                </span>
+                                             </span>
+                                          </span>
+                                       </a>
+                                    </div>
+                                 @endif($catId)
+                                 {{-- </div> --}}
+                              @endforeach
+
+                           {{-- </div>
+                        </div> --}}
+                     </div>
+                  </div>
+                  {{-- ./BY CATEGORIE --}}
+
+
+                  {{--
+                  <div class="container py-2">
+                     <div class="row">
+                        <div class="col text-left">
+                           <h4>Program Studi :</h4>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        {{-!- <div class="col">
+                           <div class="owl-carousel owl-theme stage-margin" data-plugin-options="{'items': 4, 'margin': 5, 'loop': false, 'nav': true, 'dots': false, 'stagePadding': 40}"> -!-}}
+                              
+                              @foreach ( $perumahan->productAll as $kProduct => $product )
+                                 {{-!- <div>
+                                    <div class="portfolio-item"> -!-}}
+                                    <div class="portfolio-item col-md-3 py-3">
+                                       <a href="{{ route('expoproperty_front.product', ['id' => $product->uuid ]) }}">
+                                          <span class="thumb-info thumb-info-lighten border-radius-0">
+                                             <span class="thumb-info-wrapper border-radius-0">
+                                                <img src="{{ env('URL_ENDPOINT').$product->img_pic }}" class="img-fluid border-radius-0" alt="{{ $product->name }}">
+                                                <span class="thumb-info-title">
+                                                   <span class="thumb-info-inner"  style="line-height: 85%;">
+                                                      <small>{{ $product->name }}</small>
+                                                   </span>
+                                                   <span class="thumb-info-type"  style="line-height: normal;">{{ $product->cat->name ?? '' }}</span>
+                                                </span>
+                                                <span class="thumb-info-action">
+                                                   <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-eye"></i></span>
+                                                </span>
+                                             </span>
+                                          </span>
+                                       </a>
+                                    </div>
+                                 {{-!- </div> -!-}}
+                              @endforeach
+
+                           {{-!- </div>
+                        </div> -!-}}
+                     </div>
+                  </div>
+                  --}}
+                  @endif
+                  {{-- ./Product --}}
+                  {{-- =============================== --}}
+               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  <!-- end col-5 -->
+               <div class="col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                  {{-- @if($_SERVER['REMOTE_ADDR'] === '202.80.216.49' )
+                        @dump( $perumahan->marketing )
+                  @endif --}}
+
                   {{-- 
                   <button type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" data-target=".simBNI" onclick="gooAnalytic('modal-simulasi')">Simulasi BNI Griya</button>
                   <button class="btn btn-lg btn-block btn-danger" onclick="window.open('{{ $baseApp['url_form_kredit'] }}');gooAnalytic('eform-bni-direct');">AJUKAN PEMOHON BNI GRIYA</button>
                   <br/> --}}
 
-                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth developer lain</button>
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth kampus lain</button>
 
                   <div class="col-sm-12 wow fadeIn pt-5">
                         <h6 class="text-center"><b>Event Pamerpamer.com</b></h6>
@@ -287,17 +586,29 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
                         </ul>
                   </div>
 
-               </div>
-
-         <div class="row">
-         </div>
-               <div class="col-lg-9 wow fadeIn">
-                  <div class="map" id="map">
-                     {!! $perumahan->glocation !!}
+                  
+                  <div class="divider divider-small">
+                     <hr class="bg-color-grey-scale-4">
                   </div>
-               </div>
+                  <div class="col-sm-12 wow fadeIn pt-5">
+                        <h6 class="text-center"><b>Artikel Pamerpamer.com</b></h6>
+                        <ul>
+                           
+                           @foreach ( $base['artikel'] as $kArtikel => $vArtikel )
+                           {{-- <li style="border:none;cursor: pointer;" onclick="document.location='{{ env('URL_ENDPOINT'). '/' .$vArtikel->seo_url_slug_en }}';return false;" class="pb-2"> --}}
+                           <li style="border:none;cursor: pointer;" class="pb-2">
+                              <a href="{{ env('URL_ENDPOINT'). '/blogs/' .$vArtikel->seo_url_slug_en }}" >
+                              {{-- <h6>{{ env('URL_ENDPOINT'). '/' .$vArtikel->seo_url_slug_en }}</h6> --}}
+                              <h6>{{ $vArtikel->title_en }}</h6>
+                              </a>
+                           </li>
+                           @endforeach
+                           
+                        </ul>
+                  </div>
+
+               </div>         
          </div>
-         
       </div>
    </section>
 
@@ -390,47 +701,6 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
 @endif
 {{-- ./dokter --}}
 
-
-{{-- Product --}}
-@if($perumahan->product && count($perumahan->product) > 0 )
-<div class="container py-2">
-   <div class="row">
-      <div class="col text-left">
-         <h4>Product :</h4>
-      </div>
-   </div>
-
-   <div class="row">
-      <div class="col">
-         <div class="owl-carousel owl-theme stage-margin" data-plugin-options="{'items': 4, 'margin': 5, 'loop': false, 'nav': true, 'dots': false, 'stagePadding': 40}">
-            
-            @foreach ( $perumahan->product as $kProduct => $product )
-               <div>
-                  <div class="portfolio-item">
-                     <a href="{{ route('expoproperty_front.product', ['id' => $product->uuid ]) }}">
-                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                           <span class="thumb-info-wrapper border-radius-0">
-                              <img src="{{ env('URL_ENDPOINT').$product->img_pic }}" class="img-fluid border-radius-0" alt="{{ $product->name }}">
-                              <span class="thumb-info-title">
-										<span class="thumb-info-inner">{{ $product->name }}</span>
-										<span class="thumb-info-type">{{ $product->cat->name }}</span>
-                              </span>
-                              <span class="thumb-info-action">
-                                 <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-eye"></i></span>
-                              </span>
-                           </span>
-                        </span>
-                     </a>
-                  </div>
-               </div>
-            @endforeach
-
-         </div>
-      </div>
-   </div>
-</div>
-@endif
-{{-- ./Product --}}
 
 {{-- ./Layanan --}}
 @if($perumahan->layanan && count($perumahan->layanan) > 0 )
@@ -586,52 +856,73 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
 @endif
 
 
-
-   
-
-   <div class="modal fade devOther" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+{{-- Modal 360 --}}
+   <div class="modal fade model360" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-xl">
+         
          <div class="modal-content">
             {{-- ..... --}}
-            <section class="pt-4">
-					<div class="container mt-4 pt-4 pb-4">
-
-                     <div class="row pt-2">
-                        <div class="col">
-                        <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Participating</h2>
-                        <p class="custom-font-size-1 text-center mb-2">Expo Event 2021</p>
-                        </div>
-                     </div>
-
-                     <div class="row pt-2 pb-4 mb-4">
-                     @foreach ( $perumahan_list as $kPer => $vPer )
-                     @if($vPer->img_pic)
-                        <div class="col-md-4 col-lg-3 mt-3 mb-3">
-                           <div class="custom-speaker-card bg-color-light m-auto">
-                              <div class="speaker-photo">
-                                 {{-- <a href="#speaker-content-1" class="popup-with-zoom-anim text-decoration-none"m text-decoration-none"> --}}
-                     <a href="{{ route('expoproperty_front.dev', ['id' => $vPer->uuid ]) }}">
-                                    <img loading="lazy" src="{{ env('URL_ENDPOINT').$vPer->img_pic }}" class="img-fluid" alt="">
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
-                        @endif
-                     @endforeach
-                     </div>
-
-                     <div class="row pt-2">
-                        <div class="col text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                     </div>
-
-					</div>
+            <section>
+                  <iframe id="model360Iframe" src="{{ $perumahan->link_360 }}" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                  <button type="button" class="close btn btn-danger text-dark" data-dismiss="modal" aria-hidden="true" style="width: 100%;margin-top: -8px;padding: 10px;">Close &times;</button>
 				</section>
             {{-- ..... --}}
          </div>
       </div>
    </div>
+{{-- ./Modal 360 --}}
+
+
+{{-- Modal Listing Fakultas --}}
+@if($perumahan->productAll && count($perumahan->productAll) > 0 )
+   @foreach ( $perumahan->productAll()->groupBy('categorie_product_id')->get() as $catprod )
+      @php
+         $catId = isset( $catprod->cat->id ) ? $catprod->cat->id  : '';
+      @endphp
+
+      <div class="modal fade model_fakultas_{{ $catId }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-md">
+            
+            <div class="modal-content">
+               {{-- ..... --}}
+               @php
+                  $cat = $perumahan->productAll()->where('categorie_product_id', $catId)->get();
+               @endphp
+
+               <section class="pt-4 px-4">
+
+               <div class="accordion" id="accordionPrimary_{{ $catId }}">
+                  @foreach ( $cat as $catVar)
+                     <div class="card card-default">
+                        <div class="card-header bg-color-primary" id="collapsePrimaryHeadingOne">
+                           <h4 class="card-title m-0">
+                              <a class="accordion-toggle text-color-light" data-toggle="collapse" data-target="#collapsePrimaryOne_{{ $catVar->id }}" aria-expanded="true" aria-controls="collapsePrimaryOne_{{ $catVar->id }}">
+                                 {{ $catVar->name }}
+                              </a>
+                           </h4>
+                        </div>
+                        <div id="collapsePrimaryOne_{{ $catVar->id }}" class="collapse" aria-labelledby="collapsePrimaryHeadingOne" data-parent="#accordionPrimary_{{ $catId }}">
+                           <div class="card-body">
+                              <p class="mb-0">{!! $catVar->prolog !!}</p>
+                           </div>
+                        </div>
+                     </div>
+                  @endforeach
+
+
+                     <button type="button" class="close btn btn-danger text-dark" data-dismiss="modal" aria-hidden="true" style="width: 100%;margin-top: -8px;padding: 10px;">Close &times;</button>
+               </section>
+               {{-- ..... --}}
+            </div>
+         </div>
+      </div>
+   @endforeach
+@endif
+{{-- ./Modal Listing Fakultas --}}
+   
+
+   @include( $base['thema_lock'].'partial.modal-booth', ['perumahan_list' => $perumahan_list])
+   
 
    {{-- Simulasi BNI --}}
  {{-- @include( $base['thema_lock'].'bniSimulasi', ['base' => $base, 'baseApp' => $baseApp ]) --}}
@@ -673,6 +964,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$perumahan->siteplan }}); ba
       });
       */
       $(document).ready(function() {
+         $('#model360Iframe').css("height", $( window ).height() - ( $( window ).height()/9 ) );
          let hight = alertSize( 350 );
          let flagPic = true;
 

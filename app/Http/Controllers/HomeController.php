@@ -47,11 +47,40 @@ class HomeController extends BaseController
       return 'onefamily.';
     }
 
+    public function __construct(Request $request){
+      /*
+      $name_route = $request->route()->getName();
+      // dump('$name_route');
+      if(  $name_route == 'maintenance' ){
+        
+      }else if($name_route !== 'expoproperty_front.home' ){
+        $ip = $request->ip();
+        // "180.248.17.42"
+        // if( $ip !== '180.248.17.42'){
+        /--*
+          if( $ip !== '180.246.229.20'){
+          return redirect('/maintenance')->send();
+        }
+        *--/
+
+      }
+      */
+    	SaveVisitorInfo();
+    }
+
     private function base( $saveActifity = true ){
       $FrontSetting = FrontSetting::all()->pluck('value', 'key');
       $base = [];
       $base['thema_lock'] = $this->thema();
       $base['vid'] = true;
+      $base['perumahan']  = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->get();
+
+      $artikel = \App\Models\FrontBlogs::where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->limit(5)
+                ->get();
+      $base['artikel'] = $artikel;
+
       foreach ($FrontSetting as $kFrontSetting => $vFrontSetting) {
             // session()->flash('base.'.$kFrontSetting, $vFrontSetting);
             // session(['base.'.$kFrontSetting => $vFrontSetting]);
@@ -75,7 +104,7 @@ class HomeController extends BaseController
       return $baseApp;
     }
 
-    public function getWelcome(Request $request){
+    public function getWelcome2(Request $request){
       
       // if( Auth::check() ){
       //     return redirect()->route('expoproperty_front.home');
@@ -86,6 +115,21 @@ class HomeController extends BaseController
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
 
       return view( $this->thema() . 'welcome', compact( 'base', 'baseApp', 'sponsor') );
+    }
+    public function getWelcome(Request $request){
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+
+      $vid = ( $request->vid ) ? false : true ;
+      $base['vid'] = $vid;
+
+      $dev = Developer::where('status', 1)->whereNull('deleted_at')->get();
+      $perumahan = Perumahan::where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->get();
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      $event = expoEvent::where('status', 1)->whereNull('deleted_at')->orderBy('start_event', 'desc')->get();
+      $categorie = Categorie::where('status', 1)->whereNull('deleted_at')->get();
+
+      return view( $this->thema() . 'home', compact( 'base', 'baseApp', 'dev', 'sponsor', 'perumahan', 'event', 'categorie') );
     }
 
     public function getHome(Request $request){
@@ -153,8 +197,8 @@ class HomeController extends BaseController
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
       
 
-      // return view( $this->thema() . 'login', compact( 'base', 'baseApp', 'sponsor') );
-      return view( $this->thema() . 'welcome', compact( 'base', 'baseApp', 'sponsor') );
+      return view( $this->thema() . 'login', compact( 'base', 'baseApp', 'sponsor') );
+      // return view( $this->thema() . 'welcome', compact( 'base', 'baseApp', 'sponsor') );
     }
 
     public function showFormRegister(Type $var = null){
@@ -224,7 +268,7 @@ class HomeController extends BaseController
         $product = ($cat->allProduct == '') ? [] : $cat->allProduct;
         $title = 'Kategori : '.$cat->name;
       } else {
-        $title = 'All Product ';
+        $title = 'All Program Studi';
         $cat = BeautyCategoriProduct::getModel();
         $product = BeautyProduct::where('status', 1)->whereNull('deleted_at')->get();
       }

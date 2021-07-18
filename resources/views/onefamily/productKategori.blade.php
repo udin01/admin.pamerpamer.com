@@ -53,7 +53,7 @@
 
 
 								<div class="addtocart-btn-wrapper">
-									<a href="{{ route('expoproperty_front.product', ['id' => $pro->uuid ]) }}" class="text-decoration-none addtocart-btn" data-tooltip data-original-title="Add to Cart">
+									<a href="{{ route('expoproperty_front.product', ['id' => $pro->uuid ]) }}" class="text-decoration-none addtocart-btn" data-tooltip data-original-title="view">
 										<i class="icons icon-eye"></i>
 									</a>
 								</div>
@@ -66,7 +66,7 @@
 							</div>
 							<div class="d-flex justify-content-between">
 								<div>
-									<a href="{{ route('expoproperty_front.kategoriProduct', ['id' => $pro->cat->uuid ]) }}" class="d-block text-uppercase text-decoration-none text-color-default text-color-hover-primary line-height-1 text-0 mb-1">{{$pro->cat->name}}</a>
+									<a href="{{ route('expoproperty_front.kategoriProduct', ['id' => isset($pro->cat->uuid) ? $pro->cat->uuid : ''  ]) }}" class="d-block text-uppercase text-decoration-none text-color-default text-color-hover-primary line-height-1 text-0 mb-1">{{$pro->cat->name ?? ''}}</a>
 									<h3 class="text-3-4 font-weight-normal font-alternative text-transform-none line-height-3 mb-0"><a href="{{ route('expoproperty_front.product', ['id' => $pro->uuid ]) }}" class="text-color-dark text-color-hover-primary">{{ $pro->name }}</a></h3>
 								</div>
 								<a href="#" class="text-decoration-none text-color-default text-color-hover-dark text-4"><i class="far fa-heart"></i></a>
@@ -108,7 +108,7 @@
 {{-- ############# Sidebar ##########  --}}
 
 
-					<div class="col-lg-3">
+					<div class="col-lg-3 mb-5">
 						<aside class="sidebar">
 							<form action="{{ route('expoproperty_front.searchProduct') }}" method="get">
 								<div class="input-group mb-3 pb-1">
@@ -124,7 +124,7 @@
 								<hr class="bg-color-grey-scale-4">
 							</div>
 
-							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth developer lain</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth kampus lain</button>
 
 							<hr class="solid my-2">
 
@@ -137,14 +137,35 @@
 							@endforeach
 							</ul>
 
+
+							<div class="divider divider-small">
+								<hr class="bg-color-grey-scale-4">
+							</div>
+
 							<h5 class="font-weight-bold pt-3">Event Pamerpamer.com</h5>
 							<ul class="nav nav-list flex-column">
 							@foreach ( $event_list as $kDev => $vDev )
-								<li class="nav-item" style="border:none;cursor: pointer;" onclick="document.location='{{ route('expoproperty_front.event', ['id' => $vDev->uuid ]) }}';return false;">
+								<li class="nav-item" style="border:none;cursor: pointer;" onclick="document.location='{{ route('expoproperty_front.event', ['id' => isset($vDev->uuid) ? $vDev->uuid : '' ]) }}';return false;">
 									<a>{{ $vDev->name }} - {{ $vDev->tema }}</a>
 								</li>
 							@endforeach
-							</ul>							
+							</ul>
+
+
+							<div class="divider divider-small">
+								<hr class="bg-color-grey-scale-4">
+							</div>
+
+							<h5 class="font-weight-bold pt-3">Artikel Pamerpamer.com</h5>
+							<ul class="nav nav-list flex-column">
+							@foreach ( $base['artikel'] as $kArtikel => $vArtikel )
+								{{-- <li class="nav-item" style="border:none;cursor: pointer;" onclick="document.location='{{ route('expoproperty_front.event', ['id' => $vDev->uuid ]) }}';return false;"> --}}
+								<li class="nav-item" style="border:none;cursor: pointer;">
+									<a href="{{ env('URL_ENDPOINT'). '/blogs/' .$vArtikel->seo_url_slug_en }}" >{{ $vArtikel->title_en }}</a>
+								</li>
+							@endforeach
+							</ul>
+
 
 						</aside>
 					</div>

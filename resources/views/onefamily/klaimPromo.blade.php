@@ -89,9 +89,9 @@
 												</div>
 												
 												{!! $pro->note !!}
-												<p>
+												{{-- <p>
 													<a href="#" class="btn btn-lg btn-success text-4 text-uppercase">Klaim</a>
-												</p>
+												</p> --}}
 
 
 											</div>
@@ -135,7 +135,7 @@
 								<hr class="bg-color-grey-scale-4">
 							</div>
 
-							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth developer lain</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth kampus lain</button>
 
 							<hr class="solid my-2">
 
@@ -184,6 +184,10 @@
 						@endif
 
 						<hr class="solid my-2">
+						<p class="text-center">
+							Code Promo = 
+							<button type="button" class="btn btn-warning">{{$pro1->code}}</button>
+						</p>
 						
 						<div class="row pt-2">
 							<div class="col text-center">

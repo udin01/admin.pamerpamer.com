@@ -51,7 +51,11 @@ class BeautyKlinik extends Model
         'user_by',
         'sort',
         'categorie_id',
-        'profil_video'
+        'profil_video',
+        'type_expo',
+        'link_360',
+        'link_browsur',
+        'link_other',
         
     ];
 

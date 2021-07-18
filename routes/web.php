@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     
-    Route::group(['middleware' => 'auth'], function () {
-    // Route::group(['middleware' => 'web'], function () {
+    // Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'web'], function () {
         Route::get('/', [
             'as' => 'expoproperty_front.home',
             'uses' => 'HomeController@getHome',

@@ -38,7 +38,13 @@
 									<div class="thumb-gallery-detail owl-carousel owl-theme manual nav-inside nav-style-1 nav-dark mb-3">
                               
                               <div>
-											<img alt="" class="img-fluid" src="{{ env('URL_ENDPOINT').$productDetail->img_pic }}" data-zoom-image="{{ env('URL_ENDPOINT').$productDetail->img_pic }}" />
+											{{-- <img alt="" class="img-fluid" src="{{ env('URL_ENDPOINT').$productDetail->img_pic }}" data-zoom-image="{{ env('URL_ENDPOINT').$productDetail->img_pic }}" /> --}}
+											 <a class="img-thumbnail img-thumbnail-no-borders d-block lightbox" href="{{ env('URL_ENDPOINT').$productDetail->img_pic }}" data-plugin-options="{'type':'image'}">
+												<img class="img-fluid" src="{{ env('URL_ENDPOINT').$productDetail->img_pic }}" alt="-">
+												<span class="zoom">
+													<i class="fas fa-search"></i>
+												</span>
+											</a>
 										</div>
 
 									</div>
@@ -80,7 +86,7 @@
 									</div>
 
 									<p class="price mb-3">
-										<span class="sale text-color-dark">{{$productDetail->cat->name}}</span>
+										<span class="sale text-color-dark">{{$productDetail->cat->name ?? ''}}</span>
 									</p>
 
 									<p class="text-3-4 mb-3">{{$productDetail->prolog}}</p>
@@ -113,9 +119,9 @@
 												</a>
 											</li>
 										</ul>
-										<a href="#" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold text-2">
+										{{-- <a href="#" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold text-2">
 											<i class="far fa-heart mr-1"></i> SAVE TO WISHLIST
-										</a>
+										</a> --}}
 									</div>
 
 								</div>
@@ -144,17 +150,18 @@
 
 						<hr class="solid my-5">
 
-						@if( $productDetail->klinik->product && count($productDetail->klinik->product) > 0)
-						<h4 class="mb-3 mt-5"> <strong>Products</strong> Lain</h4>
+						@if( $productDetail->klinik->productAll && count($productDetail->klinik->productAll) > 0)
+						<h4 class="mb-3 mt-5"> <strong>Program Studi</strong> Lain</h4>
 						<div class="products row">
-							<div class="col">
-								<div class="owl-carousel owl-theme show-nav-title nav-dark mb-0" data-plugin-options="{'loop': false, 'autoplay': false,'items': 4, 'nav': true, 'dots': false, 'margin': 20, 'autoplayHoverPause': true, 'autoHeight': true}">
+							{{-- <div class="col">
+								<div class="owl-carousel owl-theme show-nav-title nav-dark mb-0" data-plugin-options="{'loop': false, 'autoplay': false,'items': 4, 'nav': true, 'dots': false, 'margin': 20, 'autoplayHoverPause': true, 'autoHeight': true}"> --}}
                         
 
                         
-                     @foreach ( $productDetail->klinik->product as $product )
+                     @foreach ( $productDetail->klinik->productAll as $product )
                         @if($product->id !== $productDetail->id)
-									<div class="product mb-5">
+									{{-- <div class="product mb-5"> --}}
+									<div class="product col-md-3 py-3 mb-5">
 										<div class="product-thumb-info border-0 mb-3">
 
 											<div class="addtocart-btn-wrapper">
@@ -172,7 +179,7 @@
 										</div>
 										<div class="d-flex justify-content-between">
 											<div>
-												<a href="{{ route('expoproperty_front.product', ['id' => $product->uuid ]) }}" class="d-block text-uppercase text-decoration-none text-color-default text-color-hover-primary line-height-1 text-0 mb-1">{{$product->cat->name}}</a>
+												<a href="{{ route('expoproperty_front.product', ['id' => $product->uuid ]) }}" class="d-block text-uppercase text-decoration-none text-color-default text-color-hover-primary line-height-1 text-0 mb-1">{{$product->cat->name ?? ''}}</a>
 												<h3 class="text-3-4 font-weight-normal font-alternative text-transform-none line-height-3 mb-0"><a href="shop-product-sidebar-right.html" class="text-color-dark text-color-hover-primary">{{$product->name}}</a></h3>
 											</div>
 											<a href="#" class="text-decoration-none text-color-default text-color-hover-dark text-4"><i class="far fa-heart"></i></a>
@@ -186,8 +193,8 @@
 
 
 
-								</div>
-							</div>
+								{{-- </div>
+							</div> --}}
 						</div>
 						@endif
 
@@ -209,6 +216,32 @@
 									</span>
 								</div>
 							</form>
+
+							<div class="divider divider-small">
+								<hr class="bg-color-grey-scale-4">
+							</div>
+
+
+							 <div class="col">
+								@if( isset($productDetail->klinik->telp) && $productDetail->klinik->telp)
+									<a href="{{ $productDetail->klinik->telp }}" target="_blank" type="button" class="btn btn-warning btn-lg btn-block">
+										Hubungi Kami 1
+									</a>
+								@endif
+
+								@if( isset($productDetail->klinik->telp_2) && $productDetail->klinik->telp_2)
+									<a href="{{ $productDetail->klinik->telp_2 }}" target="_blank" type="button" class="btn btn-warning btn-lg btn-block">
+										Hubungi Kami 2
+									</a>
+								@endif
+
+
+								@if( isset($productDetail->klinik->link_other) && $productDetail->klinik->link_other)
+									<a href="{{ $productDetail->klinik->link_other }}" target="_blank" type="button" class="btn btn-warning btn-lg btn-block">
+										Daftar PMB Disini
+									</a>
+								@endif
+							</div>
 
 							@if( $productDetail->klinik->marketing && count($productDetail->klinik->marketing) !== 0 )
 								@foreach ( $productDetail->klinik->marketing as $keySales => $sales )
@@ -248,7 +281,7 @@
 								<hr class="bg-color-grey-scale-4">
 							</div>
 
-							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth developer lain</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth kampus lain</button>
 
 							<hr class="solid my-2">
 
@@ -261,6 +294,11 @@
 							@endforeach
 							</ul>
 
+
+							<div class="divider divider-small">
+								<hr class="bg-color-grey-scale-4">
+							</div>
+
 							<h5 class="font-weight-bold pt-3">Event Pamerpamer.com</h5>
 							<ul class="nav nav-list flex-column">
 							@foreach ( $event_list as $kDev => $vDev )
@@ -268,7 +306,24 @@
 									<a>{{ $vDev->name }} - {{ $vDev->tema }}</a>
 								</li>
 							@endforeach
-							</ul>							
+							</ul>
+							
+
+							<div class="divider divider-small">
+								<hr class="bg-color-grey-scale-4">
+							</div>
+
+							<h5 class="font-weight-bold pt-3">Artikel Pamerpamer.com</h5>
+							<ul class="nav nav-list flex-column">
+							@foreach ( $base['artikel'] as $kArtikel => $vArtikel )
+								{{-- <li class="nav-item" style="border:none;cursor: pointer;" onclick="document.location='{{ route('expoproperty_front.event', ['id' => $vDev->uuid ]) }}';return false;"> --}}
+								<li class="nav-item" style="border:none;cursor: pointer;">
+									<a href="{{ env('URL_ENDPOINT'). '/blogs/' .$vArtikel->seo_url_slug_en }}" >{{ $vArtikel->title_en }}</a>
+								</li>
+							@endforeach
+							</ul>
+
+							
 
 						</aside>
 					</div>
