@@ -237,66 +237,81 @@ class AuthController extends BaseController
             return response()->json(['response' => 'error', 'errorMessage'=> 'Email tidak terdaftar']);
         }
         $user->kode_konfirmasi = rand(100000,999999);
+        $user->status_konfirmasi = '';
         $user->save();
-        $this->sendEmailForgetPassword($request->email, $user->kode_konfirmasi);
+        $this->sendEmailForgetPassword($request->email, $user->name, $user->kode_konfirmasi);
 
         return response()->json(['response' => 'success']);
     }
 
-    public function sendEmailForgetPassword($email = '', $kode = ''){
-	public function getKonfirmasiResetPassword($kode){
+    public function postKonfirmasiNewPassword(Request $request) {
+        $user = \App\Models\JobfairUser::find($request->id);
+
+        if(!$user){
+            Log::error('postKonfirmasiNewPassword '.$request->id);
+            return response()->json(['response' => 'error', 'errorMessage'=> 'Email tidak terdaftar']);
+        }
+        $user->kode_konfirmasi = '';
+        $user->status_konfirmasi = 1;
+        $user->password = Hash::make( $request->password );
+        $user->save();
+
+        return response()->json(['response' => 'success', 'reload' => true]);
     }
 
 
-public function sendEmailForgetPassword($email = '', $kode = ''){
-$details = [
-        	'title' => 'Mail Reset Password, Virtualfair.ub.ac.id',
-        	'body' => 'klik Link berikut untuk mereset password anda <br/>
-            <a href="'.route('konfirmasi_reset_password.email', ['kode' => $kode ] ).'" target="_blank">'.route('konfirmasi_reset_password.email', ['kode' => $kode ] ).'</a>'
-    	];
+   public function sendEmailForgetPassword($email = '', $name = '', $kode = ''){
+      $details = [
+               'title' => 'Mail Reset Password, Virtualfair.ub.ac.id',
+               'body' => 'klik Link berikut untuk mereset password anda <br/>
+                  <a href="'.route('konfirmasi_reset_password.email', ['kode' => $kode ] ).'" target="_blank">'.route('konfirmasi_reset_password.email', ['kode' => $kode ] ).'</a>'
+            ];
 
-$body = [
-    'Messages' => [
-        [
-        'From' => [
-            'Email' => "noreplay@virtualfair.ub.ac.id",
-            'Name' => "virtualfair.ub.ac.id"
-        ],
-        'To' => [
+      $body = [
+         'Messages' => [
             [
-                'Email' => $email,
-                'Name' => "Reset password"
+            'From' => [
+                  'Email' => "noreplay@virtualfair.ub.ac.id",
+                  'Name' => "virtualfair.ub.ac.id"
+            ],
+            'To' => [
+                  [
+                     'Email' => $email,
+                     'Name' => $name
+                  ]
+            ],
+            'Subject' => "Reset password, VirtualFair.ub.ac.id",
+            'HTMLPart' => view('myTestMail', ['details' => $details])->render()
             ]
-        ],
-        'Subject' => "Reset password, VirtualFair.ub.ac.id",
-        'HTMLPart' => view('myTestMail', ['details' => $details])->render()
-        ]
-    ]
-];
+         ]
+      ];
 
-$key = env('MAILJET_APIKEY').':'.env('MAILJET_APISECRET');
-  
-$ch = curl_init();
-  
-curl_setopt($ch, CURLOPT_URL, "https://api.mailjet.com/v3.1/send");
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-    'Content-Type: application/json')
-);
-curl_setopt($ch, CURLOPT_USERPWD, $key);
-$server_output = curl_exec($ch);
-curl_close ($ch);
-  
-$response = json_decode($server_output);
-if ($response->Messages[0]->Status == 'success') {
-    echo "Email sent successfully.";
-}
-}
+      $key = env('MAILJET_APIKEY').':'.env('MAILJET_APISECRET');
+      
+      $ch = curl_init();
+      
+      curl_setopt($ch, CURLOPT_URL, "https://api.mailjet.com/v3.1/send");
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+         'Content-Type: application/json')
+      );
+      curl_setopt($ch, CURLOPT_USERPWD, $key);
+      $server_output = curl_exec($ch);
+      curl_close ($ch);
+      
+      $response = json_decode($server_output);
+      if($response->ErrorMessage){
+          Log::error('Error Send Email '.$email . ' ::: ' . $response->ErrorMessage);
+          echo $response->ErrorMessage;
+      } else {
+          if ($response->Messages[0]->Status == 'success') {
+             echo "Email sent successfully.";
+          }
+      }
+   }
 
-        
-    }
     
     public function postLogin(Request $request){
         

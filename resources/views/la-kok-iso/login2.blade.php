@@ -97,7 +97,7 @@
           <div class="form-group col-md-6">
             <div class="text-right">
               <label class="form-check-label">
-                {{-- <a href="{{ route('expoproperty_front.forgetPassword') }}">Lupa Password?</a> --}}
+                <a href="{{ route('expoproperty_front.forgetPassword') }}">Lupa Password?</a>
               </label>
             </div>
           </div>

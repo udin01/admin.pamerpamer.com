@@ -4,7 +4,7 @@
     <title>virtualfair.ub.ac.id</title>
 </head>
 <body>
-    <h1>{{ $details['title'] }}</h1>
+    <h2>{{ $details['title'] }}</h2>
     <p>{!! $details['body'] !!}</p>
    
     <p>Thank you</p>
