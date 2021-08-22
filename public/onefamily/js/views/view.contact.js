@@ -102,6 +102,11 @@ Name: 			View - Contact
 						$form.find('.form-control').removeClass('error');
 
 						$submitButton.val( submitButtonText ).attr('disabled', false);
+						if(data.reload){
+							setTimeout(() => {
+								location.reload();
+							}, 1000);
+						}
 						
 						return;
 

@@ -203,10 +203,11 @@ class AuthController extends BaseController
             $user->event_id = $this->event();
             $user->password = Hash::make( $request->password );
             $simpan = $user->save();
+            Auth::login($user);
 
             // $resp = sendWa( env('KEY_WHT'), $noWA, $text, $user->id, 'Send OTP');
             
-            return response()->json(['response' => 'success']);
+            return response()->json(['response' => 'success', 'reload' => true]);
             
         } catch (\Throwable $th) {
         	actGuest(' { "daftar salah": "'. json_encode($request->all()).'"}' );
@@ -227,6 +228,24 @@ class AuthController extends BaseController
         // ./-------------------
     }
 
+    public function postForgetPassword(Request $request){
+        $user = \App\Models\JobfairUser::where('email', $request->email)->first();
+
+        if(!$user){
+            Log::error('ForgetPassword '.$request->email);
+            return response()->json(['response' => 'error', 'errorMessage'=> 'Email tidak terdaftar']);
+        }
+        $user->kode_konfirmasi = rand(100000,999999);
+        $user->save();
+        $this->sendEmailForgetPassword($request->email, $user->kode_konfirmasi);
+
+        return response()->json(['response' => 'success']);
+    }
+
+    public function sendEmailForgetPassword($email = '', $kode = ''){
+        
+    }
+    
     public function postLogin(Request $request){
         
         if( !$request->email || !$request->password ){

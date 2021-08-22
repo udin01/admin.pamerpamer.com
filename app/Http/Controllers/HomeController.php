@@ -198,6 +198,18 @@ class HomeController extends BaseController
       return view( $this->thema() . 'login2', compact( 'base', 'baseApp', 'sponsor') );
     }
 
+    public function getForgetPassword(){
+       if( Auth::check() ){
+          return redirect()->route('expoproperty_front.home2');
+      }
+
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      
+      return view( $this->thema() . 'forgetPassword', compact( 'base', 'baseApp', 'sponsor') );
+    }
+
     public function getSignup(){
 
       if( Auth::check() ){

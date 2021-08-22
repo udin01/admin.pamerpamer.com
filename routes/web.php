@@ -168,6 +168,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         'as' => 'expoproperty_front.login',
         'uses' => 'HomeController@getLogin',
     ]);
+    
+    Route::get('/forgetPassword', [
+        'as' => 'expoproperty_front.forgetPassword',
+        'uses' => 'HomeController@getForgetPassword',
+    ]);
     Route::get('/signup', [
         'as' => 'expoproperty_front.signup',
         'uses' => 'HomeController@getSignup',
@@ -175,6 +180,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/post-signup', [
         'as' => 'expoproperty_front.post-signup',
         'uses' => 'AuthController@postSignup',
+    ]);
+    Route::post('/post-forget-password', [
+        'as' => 'expoproperty_front.post-forget-password',
+        'uses' => 'AuthController@postForgetPassword',
     ]);
     Route::post('/postlogin', [
         'as' => 'expoproperty_front.post-login',
@@ -201,6 +210,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // ==========================================================
     // ==========================================================
     // ==========================================================
+
+    Route::get('/test-email/{email?}', [
+        'as' => 'test.email',
+        'uses' => 'AuthController@sendEmailForgetPassword',
+    ]);
 
 
     Route::get('/test-view', [
