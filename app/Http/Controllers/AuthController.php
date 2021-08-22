@@ -32,6 +32,7 @@ use Hash;
 use Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Arr;
+use Exception;
 
 
  
@@ -243,6 +244,57 @@ class AuthController extends BaseController
     }
 
     public function sendEmailForgetPassword($email = '', $kode = ''){
+	public function getKonfirmasiResetPassword($kode){
+    }
+
+
+public function sendEmailForgetPassword($email = '', $kode = ''){
+$details = [
+        	'title' => 'Mail Reset Password, Virtualfair.ub.ac.id',
+        	'body' => 'klik Link berikut untuk mereset password anda <br/>
+            <a href="'.route('konfirmasi_reset_password.email', ['kode' => $kode ] ).'" target="_blank">'.route('konfirmasi_reset_password.email', ['kode' => $kode ] ).'</a>'
+    	];
+
+$body = [
+    'Messages' => [
+        [
+        'From' => [
+            'Email' => "noreplay@virtualfair.ub.ac.id",
+            'Name' => "virtualfair.ub.ac.id"
+        ],
+        'To' => [
+            [
+                'Email' => $email,
+                'Name' => "Reset password"
+            ]
+        ],
+        'Subject' => "Reset password, VirtualFair.ub.ac.id",
+        'HTMLPart' => view('myTestMail', ['details' => $details])->render()
+        ]
+    ]
+];
+
+$key = env('MAILJET_APIKEY').':'.env('MAILJET_APISECRET');
+  
+$ch = curl_init();
+  
+curl_setopt($ch, CURLOPT_URL, "https://api.mailjet.com/v3.1/send");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    'Content-Type: application/json')
+);
+curl_setopt($ch, CURLOPT_USERPWD, $key);
+$server_output = curl_exec($ch);
+curl_close ($ch);
+  
+$response = json_decode($server_output);
+if ($response->Messages[0]->Status == 'success') {
+    echo "Email sent successfully.";
+}
+}
+
         
     }
     
