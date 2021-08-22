@@ -14,6 +14,19 @@
     height: calc(100vw/1.77);
     top: calc(20vh/2);
   }
+ .owl-dots{
+     line-height:normal;
+ }
+ .owl-item span{
+ 	line-height:normal;
+ }
+ .owl-item {
+ 	margin-top: 50px; 
+ }
+ .owl-carousel {
+    margin-bottom: 5px;
+ }
+	/* margin-right: -15px; */
 }
 </style>
 @endsection
@@ -202,7 +215,7 @@
       </div>
     </div>
 
-	{{--
+	{{-- --}}
     <div class="row" style="background-image: url({{ env('URL_ENDPOINT').$baseApp['bg_showcase'] }}); background-size: cover; background-position: center;">
       <div class="col">
         <div class="m-auto appear-animation img-booth w-50" data-appear-animation="fadeIn" data-appear-animation-delay="500">
@@ -221,7 +234,7 @@
         </div>
       </div>
     </div>
-  	--}}
+  	{{-- --}}
   
     <style>
     .img-booth .owl-carousel.nav-light.nav-style-1 .owl-nav .owl-prev {

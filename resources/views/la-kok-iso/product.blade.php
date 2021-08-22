@@ -661,8 +661,8 @@
 @endsection
 
 @section ('link_js')
-   <script src="{{ asset('onefamily/js/views/view.shop.js')}}"></script>
-   <script src="{{ asset('onefamily/js/examples.gallery.js')}}"></script>
+   <script src="{{ secure_asset('onefamily/js/views/view.shop.js')}}"></script>
+   <script src="{{ secure_asset('onefamily/js/examples.gallery.js')}}"></script>
 	
    <script>
 

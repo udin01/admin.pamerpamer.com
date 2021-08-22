@@ -41,42 +41,42 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CPlayfair+Display:400,700,900&display=swap" rel="stylesheet" type="text/css">
 
   <!-- Vendor CSS -->
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/bootstrap/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/fontawesome-free/css/all.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/animate/animate.compat.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/simple-line-icons/css/simple-line-icons.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/owl.carousel/assets/owl.carousel.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/owl.carousel/assets/owl.theme.default.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/vendor/magnific-popup/magnific-popup.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/animate/animate.compat.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/simple-line-icons/css/simple-line-icons.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/owl.carousel/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/owl.carousel/assets/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/magnific-popup/magnific-popup.min.css') }}">
 
   @yield('style_css_all_in')
 
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="{{ asset('onefamily/css/theme.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/css/theme-elements.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/css/theme-blog.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/css/theme-shop.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/theme.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/theme-elements.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/theme-blog.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/theme-shop.css') }}">
 
 
   <!-- Revolution Slider CSS -->
-		<link rel="stylesheet" href="{{ asset('onefamily/vendor/rs-plugin/css/settings.css') }}">
-		<link rel="stylesheet" href="{{ asset('onefamily/vendor/rs-plugin/css/layers.css') }}">
-		<link rel="stylesheet" href="{{ asset('onefamily/vendor/rs-plugin/css/navigation.css') }}">
+		<link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/rs-plugin/css/settings.css') }}">
+		<link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/rs-plugin/css/layers.css') }}">
+		<link rel="stylesheet" href="{{ secure_asset('onefamily/vendor/rs-plugin/css/navigation.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
   <!-- Demo CSS -->
-  <link rel="stylesheet" href="{{ asset('onefamily/css/demo-startup-agency.css') }}">
-  <link rel="stylesheet" href="{{ asset('onefamily/css/demo-event.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/demo-startup-agency.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/demo-event.css') }}">
 
   <!-- Skin CSS -->
-  <link rel="stylesheet" href="{{ asset('onefamily/skins/skin-startup-agency.css') }}"> 
-  <link rel="stylesheet" href="{{ asset('onefamily/skins/skin-event.css') }}"> 
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/skins/skin-startup-agency.css') }}"> 
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/skins/skin-event.css') }}"> 
 
   <!-- Theme Custom CSS -->
-  <link rel="stylesheet" href="{{ asset('onefamily/css/custom.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('onefamily/css/custom.css') }}">
 
   <!-- Head Libs -->
-  <script src="{{ asset('onefamily/vendor/modernizr/modernizr.min.js') }}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/modernizr/modernizr.min.js') }}"></script>
     
     @yield('style_css')
     
@@ -288,47 +288,47 @@
 
 
   <!-- Vendor -->
-  <script src="{{ asset('onefamily/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.appear/jquery.appear.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.cookie/jquery.cookie.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/popper/umd/popper.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/common/common.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.validation/jquery.validate.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.gmap/jquery.gmap.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/jquery.lazyload/jquery.lazyload.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/isotope/jquery.isotope.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/vide/jquery.vide.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/vivus/vivus.min.js')}}"></script>
-  <script src="{{ asset('onefamily/vendor/kute/kute.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.appear/jquery.appear.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.cookie/jquery.cookie.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/popper/umd/popper.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/common/common.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.validation/jquery.validate.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.gmap/jquery.gmap.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/jquery.lazyload/jquery.lazyload.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/isotope/jquery.isotope.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/vide/jquery.vide.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/vivus/vivus.min.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/kute/kute.min.js')}}"></script>
 
   <!-- Theme Base, Components and Settings -->
-  <script src="{{ asset('onefamily/js/theme.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/js/theme.js')}}"></script>
 
 
   <!-- Current Page Vendor and Views -->
-  <script src="{{ asset('onefamily/vendor/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
-  <script src="{{ asset('onefamily/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
+  <script src="{{ secure_asset('onefamily/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
 
   <!-- Current Page Vendor and Views -->
-  <script src="{{ asset('onefamily/js/views/view.contact.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/js/views/view.contact.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <!-- Demo -->
-  <script src="{{ asset('onefamily/js/demo-startup-agency.js')}}"></script>
-  <script src="{{ asset('onefamily/js/demo-event.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/js/demo-startup-agency.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/js/demo-event.js')}}"></script>
   
 
   <!-- Theme Custom -->
-  <script src="{{ asset('onefamily/js/custom.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/js/custom.js')}}"></script>
 
 
   <!-- Theme Initialization Files -->
-  <script src="{{ asset('onefamily/js/theme.init.js')}}"></script>
+  <script src="{{ secure_asset('onefamily/js/theme.init.js')}}"></script>
 	{{-- 	{{ $base['wa_cs'] || '+628573043874200' }} --}}
 	<a class="visible" href="https://wa.me/+6281259619392?text=hallo%20kakak%20bisa%20dibantu%20donk" 
        target="_blank" style="transition: opacity 0.3s;
