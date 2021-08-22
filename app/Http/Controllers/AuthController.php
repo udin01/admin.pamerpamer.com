@@ -302,7 +302,7 @@ class AuthController extends BaseController
       curl_close ($ch);
       
       $response = json_decode($server_output);
-      if($response->ErrorMessage){
+      if( isset($response->ErrorMessage) ){
           Log::error('Error Send Email '.$email . ' ::: ' . $response->ErrorMessage);
           echo $response->ErrorMessage;
       } else {

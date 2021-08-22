@@ -200,12 +200,27 @@ class HomeController extends BaseController
         $user = \App\Models\JobfairUser::find($request->id);
         dd($user);
         return false;
+      } else if($request->mod){
+         ini_set("memory_limit", "-1");
+		set_time_limit(0);
+      
+      	$user = \App\Models\JobfairUser::whereNotNull('pasfoto')->where('desc', 'pindah_foto')->limit(500)->get();
+      
+      foreach ($user as $key_user => $val_user) {
+      	$val_user->pasfoto = env('APP_URL').'/'.$val_user->pasfoto;
+        $val_user->desc = '';
+        $val_user->save();
+      }
+      echo "sip";
+      echo count($user);
+      return false;
       } else if($request->name){
         $user = \App\Models\JobfairUser::where('name', $request->name)->get();
         dd($user);
         return false;
       } else {
-
+      	ini_set("memory_limit", "-1");
+		set_time_limit(0);
       }
       $user = \App\Models\JobfairUser::whereNotNull('pasfoto')->whereNull('desc')->limit(500)->get();
       // $user = \App\Models\JobfairUser::whereNotNull('desc')->get();
@@ -222,7 +237,7 @@ class HomeController extends BaseController
         @list(, $file_data) = explode(',', $file_data); 
         $imageName_pre = $folder.'pasfoto-'.$val_user->id.'.'.'png';
         $imageName = 'public/'.$imageName_pre;
-        $val_user->pasfoto = $imageName_pre;
+        $val_user->pasfoto = env('APP_URL').'/'.$imageName_pre;
         $val_user->desc = 'pindah_foto';
         $val_user->save();
         Storage::disk('local')->put($imageName, base64_decode($file_data));
@@ -428,7 +443,7 @@ class HomeController extends BaseController
       @list(, $file_data) = explode(',', $file_data); 
       $imageName_pre = $folder.'pasfoto-'.$user->id.'.'.'png';
       $imageName = 'public/'.$imageName_pre;
-      $user->pasfoto = $imageName_pre;
+      $user->pasfoto = env('APP_URL').'/'.$imageName_pre;
       $user->desc = 'pindah_foto';
       Storage::disk('local')->put($imageName, base64_decode($file_data));
       /* ======================== ./Save foto to storage ======================= */

@@ -3,6 +3,7 @@
 /public/storage
 /public/private
 /public/uploads
+public/pasfoto
 /storage/*.key
 .env
 .env.backup
