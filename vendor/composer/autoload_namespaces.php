@@ -10,4 +10,5 @@ return array(
     'OscarAFDev\\MigrationsGenerator' => array($vendorDir . '/oscarafdev/migrations-generator/src'),
     'Orangehill\\Iseed' => array($vendorDir . '/orangehill/iseed/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'Mailjet' => array($vendorDir . '/mailjet/mailjet-apiv3-php/src'),
 );

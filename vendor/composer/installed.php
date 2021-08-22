@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-jobfair',
+    'version' => 'dev-jobfair',
     'aliases' => 
     array (
     ),
-    'reference' => '04ce6919030f06fdff3ff554fee2b7d282a6fee9',
+    'reference' => '30c5320d67ea5e606d7d33747151c42bf5e7eb45',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -476,12 +476,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-jobfair',
+      'version' => 'dev-jobfair',
       'aliases' => 
       array (
       ),
-      'reference' => '04ce6919030f06fdff3ff554fee2b7d282a6fee9',
+      'reference' => '30c5320d67ea5e606d7d33747151c42bf5e7eb45',
     ),
     'laravel/sail' => 
     array (
@@ -536,6 +536,33 @@
       array (
       ),
       'reference' => '353f66d7555d8a90781f6f5e7091932f9a4250aa',
+    ),
+    'mailjet/laravel-mailjet' => 
+    array (
+      'pretty_version' => '3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '322ede7bbe426d3cd68cb11481331cd8252b95ec',
+    ),
+    'mailjet/mailjet-apiv3-php' => 
+    array (
+      'pretty_version' => 'v1.5.3',
+      'version' => '1.5.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '77c4c44994c27a738ab46b93e67d76d39a0bf337',
+    ),
+    'mailjet/mailjet-swiftmailer' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '300eb931b8b36c7f55349b54a41bfd763a182bff',
     ),
     'mockery/mockery' => 
     array (

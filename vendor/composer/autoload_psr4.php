@@ -56,6 +56,8 @@ return array(
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Mailjet\\MailjetSwiftMailer\\' => array($vendorDir . '/mailjet/mailjet-swiftmailer'),
+    'Mailjet\\LaravelMailjet\\' => array($vendorDir . '/mailjet/laravel-mailjet/src'),
     'League\\MimeTypeDetection\\' => array($vendorDir . '/league/mime-type-detection/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'League\\Event\\' => array($vendorDir . '/league/event/src'),

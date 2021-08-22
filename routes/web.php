@@ -173,6 +173,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         'as' => 'expoproperty_front.forgetPassword',
         'uses' => 'HomeController@getForgetPassword',
     ]);
+
     Route::get('/signup', [
         'as' => 'expoproperty_front.signup',
         'uses' => 'HomeController@getSignup',
@@ -211,10 +212,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // ==========================================================
     // ==========================================================
 
-    Route::get('/test-email/{email?}', [
+    Route::get('/test-email/{email?}/{kode?}', [
         'as' => 'test.email',
         'uses' => 'AuthController@sendEmailForgetPassword',
     ]);
+
+	Route::get('/konfirmasi-reset-password/{kode?}', [
+        'as' => 'konfirmasi_reset_password.email',
+        'uses' => 'AuthController@getKonfirmasiResetPassword',
+    ]);
+
 
 
     Route::get('/test-view', [
