@@ -59,6 +59,8 @@ class HomeController extends BaseController
       return 'la-kok-iso.';
     }
 
+    /* ===============================  __construct ================== */
+    /* =============================== ================== =============== */
     public function __construct(Request $request){
       $name_route = $request->route()->getName();
       // dump('$name_route');
@@ -79,6 +81,8 @@ class HomeController extends BaseController
     }
 
     
+    /* ===============================  getMaintenance ================== */
+    /* =============================== ================== =============== */
     public function getMaintenance(){
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -114,6 +118,8 @@ class HomeController extends BaseController
       return $baseApp;
     }
 
+    /* ===============================  getWelcome ================== */
+    /* =============================== ================== =============== */
     public function getWelcome(Request $request){
       
       // if( Auth::check() ){
@@ -127,6 +133,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'welcome', compact( 'base', 'baseApp', 'sponsor') );
     }
 
+    /* ===============================  getHome ================== */
+    /* =============================== ================== =============== */
     public function getHome(Request $request){
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -143,6 +151,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'home', compact( 'base', 'baseApp', 'dev', 'sponsor', 'perumahan', 'event', 'categorie') );
     }
 
+    /* ===============================  getRegional ================== */
+    /* =============================== ================== =============== */
     public function getRegional($slug = null, Request $request){
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -183,6 +193,47 @@ class HomeController extends BaseController
       return view( $this->thema() . 'productKategori', compact( 'base', 'baseApp', 'sponsor', 'product', 'perumahan_list', 'event_list', 'catProduct', 'title', 'cat') );
     }
 
+    /* ===============================  getDbToFile ================== */
+    /* =============================== ================== =============== */
+    public function getDbToFile(Request $request){
+      if($request->id){
+        $user = \App\Models\JobfairUser::find($request->id);
+        dd($user);
+        return false;
+      } else if($request->name){
+        $user = \App\Models\JobfairUser::where('name', $request->name)->get();
+        dd($user);
+        return false;
+      } else {
+
+      }
+      $user = \App\Models\JobfairUser::whereNotNull('pasfoto')->whereNull('desc')->limit(500)->get();
+      // $user = \App\Models\JobfairUser::whereNotNull('desc')->get();
+      // $user = \App\Models\JobfairUser::find('4713');
+      // dump($user->id);
+      // dd($user);
+      // $user = [ $user ];
+
+      $folder = 'pasfoto/';
+      foreach ($user as $key_user => $val_user) {
+        // Storage::put(  'public/pasfoto-'.$val_user->id.'.jpg', $val_user->pasfoto);
+        $base64_image = $val_user->pasfoto;
+        @list($type, $file_data) = explode(';', $base64_image);
+        @list(, $file_data) = explode(',', $file_data); 
+        $imageName_pre = $folder.'pasfoto-'.$val_user->id.'.'.'png';
+        $imageName = 'public/'.$imageName_pre;
+        $val_user->pasfoto = $imageName_pre;
+        $val_user->desc = 'pindah_foto';
+        $val_user->save();
+        Storage::disk('local')->put($imageName, base64_decode($file_data));
+      }
+      echo "sip";
+      echo count($user);
+      
+    }
+
+    /* ===============================  getLogin ================== */
+    /* =============================== ================== =============== */
     public function getLogin(){
 
       if( Auth::check() ){
@@ -198,6 +249,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'login2', compact( 'base', 'baseApp', 'sponsor') );
     }
 
+    /* ===============================  getForgetPassword ================== */
+    /* =============================== ================== =============== */
     public function getForgetPassword(){
        if( Auth::check() ){
           return redirect()->route('expoproperty_front.home2');
@@ -210,6 +263,27 @@ class HomeController extends BaseController
       return view( $this->thema() . 'forgetPassword', compact( 'base', 'baseApp', 'sponsor') );
     }
 
+    /* ===============================  getKonfirmasiResetPassword ================== */
+    /* =============================== ================== =============== */
+    public function getKonfirmasiResetPassword($kode){
+      $user = \App\Models\JobfairUser::where('kode_konfirmasi', $kode)->first();
+
+      if(!$user){
+          Log::error('ForgetPassword '.$kode);
+          return redirect()->route('expoproperty_front.login');;
+      }
+      // $user->kode_konfirmasi = '';
+      // $user->save();
+
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      
+      return view( $this->thema() . 'konfirmasiNewPassword', compact( 'user', 'base', 'baseApp', 'sponsor') );
+    }
+
+    /* ===============================  getSignup ================== */
+    /* =============================== ================== =============== */
     public function getSignup(){
 
       if( Auth::check() ){
@@ -224,6 +298,8 @@ class HomeController extends BaseController
     }
 
 
+    /* ===============================  postUploadcv ================== */
+    /* =============================== ================== =============== */
     public function postUploadcv(Request $request){
       if( !Auth::check() ){ 
         return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -268,6 +344,8 @@ class HomeController extends BaseController
       // mimeType: "text/php"
     }
 
+    /* ===============================  getViewFile ================== */
+    /* =============================== ================== =============== */
     public function getViewFile($id, Request $request){
       if( !Auth::check() ){ 
         // return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -310,6 +388,8 @@ class HomeController extends BaseController
       }
     }
 
+    /* ===============================  postAkun ================== */
+    /* =============================== ================== =============== */
     public function postAkun(Request $request){
       if( !Auth::check() ){ 
         return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -337,7 +417,24 @@ class HomeController extends BaseController
       $user->ipk = $request->ipk;
       $user->toefl = $request->toefl;
       $user->toeic = $request->toeic;
-      $user->pasfoto = $request->pasfoto;
+
+
+      /* ========================= Save foto to storage ======================== */
+      // $user->pasfoto = $request->pasfoto;
+      $folder = 'pasfoto/';
+      // Storage::put(  'public/pasfoto-'.$val_user->id.'.jpg', $val_user->pasfoto);
+      $base64_image = $request->pasfoto;
+      @list($type, $file_data) = explode(';', $base64_image);
+      @list(, $file_data) = explode(',', $file_data); 
+      $imageName_pre = $folder.'pasfoto-'.$user->id.'.'.'png';
+      $imageName = 'public/'.$imageName_pre;
+      $user->pasfoto = $imageName_pre;
+      $user->desc = 'pindah_foto';
+      Storage::disk('local')->put($imageName, base64_decode($file_data));
+      /* ======================== ./Save foto to storage ======================= */
+
+
+
       $user->pengalaman_kerja = json_encode($request->pengalaman);
       $user->pengalaman_organisasi = json_encode($request->org);
       $user->save();
@@ -346,6 +443,8 @@ class HomeController extends BaseController
     }
 
 
+    /* ===============================  getAkunku ================== */
+    /* =============================== ================== =============== */
     public function getAkunku($act = ''){
 
       if( !Auth::check() ){
@@ -504,6 +603,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'user-profile', compact( 'jobSave', 'jobApply', 'user', 'base', 'baseApp', 'sponsor', 'option', 'act') );
     }
 
+    /* ===============================  showFormRegister ================== */
+    /* =============================== ================== =============== */
     public function showFormRegister(Type $var = null){
       
       if( Auth::check() ){
@@ -517,10 +618,14 @@ class HomeController extends BaseController
       return view( $this->thema() . 'register', compact( 'base', 'baseApp', 'sponsor') );
     }
 
+    /* ===============================  getSlugDev ================== */
+    /* =============================== ================== =============== */
     public function getSlugDev($dev, $id){
       return redirect()->route('expoproperty_front.dev', ['id' => $id]);
     }
 
+    /* ===============================  getDev ================== */
+    /* =============================== ================== =============== */
     public function getDev( $id = null, Request $request) {
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -539,6 +644,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'detail', compact( 'base', 'baseApp', 'sponsor', 'perumahan', 'perumahan_list', 'event_list') );
     }
 
+    /* ===============================  getProduct ================== */
+    /* =============================== ================== =============== */
     public function getProduct( $id = null, Request $request) {
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -573,6 +680,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'product', compact( 'base', 'baseApp', 'sponsor', 'productDetail', 'perumahan_list', 'event_list', 'catProduct', 'btnSaveJob', 'btnApplyJob') );
     }
 
+    /* ===============================  getKategoriProduct ================== */
+    /* =============================== ================== =============== */
     public function getKategoriProduct($id = '', Request $request){
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -604,6 +713,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'productKategori', compact( 'base', 'baseApp', 'sponsor', 'product', 'perumahan_list', 'event_list', 'catProduct', 'title', 'cat') );
     } 
 
+    /* ===============================  getSearchProduct ================== */
+    /* =============================== ================== =============== */
     public function getSearchProduct($s = '', Request $request){
 
       $base = $this->base();
@@ -647,6 +758,8 @@ class HomeController extends BaseController
 
     }
 
+    /* ===============================  postApplyJob ================== */
+    /* =============================== ================== =============== */
     public function postApplyJob($id = null, Request $request){
       if( !Auth::check() ){ 
         return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -678,6 +791,8 @@ class HomeController extends BaseController
 
       return redirect()->back()->withMsg('success save job');
     }
+    /* ===============================  postApplyJobDelete ================== */
+    /* =============================== ================== =============== */
     public function postApplyJobDelete($id = null, Request $request){
       if( !Auth::check() ){ 
         return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -699,6 +814,8 @@ class HomeController extends BaseController
       return redirect()->back()->withMsg('success Cancel job');
     }
 
+    /* ===============================  postSaveJob ================== */
+    /* =============================== ================== =============== */
     public function postSaveJob($id = null, Request $request){
       if( !Auth::check() ){ 
         return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -729,6 +846,8 @@ class HomeController extends BaseController
 
       return redirect()->back()->withMsg('success save job');
     }
+    /* ===============================  postSaveJobDelete ================== */
+    /* =============================== ================== =============== */
     public function postSaveJobDelete($id = null, Request $request){
       if( !Auth::check() ){ 
         return redirect()->route('expoproperty_front.login')->withMsg('login first');
@@ -750,6 +869,8 @@ class HomeController extends BaseController
       return redirect()->back()->withMsg('success delete job');
     }
 
+    /* ===============================  getMyAccount ================== */
+    /* =============================== ================== =============== */
     public function getMyAccount(Request $request)
     {
       $base = $this->base();
@@ -766,6 +887,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'my-account', compact( 'base', 'baseApp', 'account', 'sponsor', 'perumahan_list') );
     }
 
+    /* ===============================  getEvent ================== */
+    /* =============================== ================== =============== */
     public function getEvent( $id = '', Request $request) {
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -799,6 +922,8 @@ class HomeController extends BaseController
       return view( $this->thema() . 'event', compact('event', 'base', 'baseApp', 'sponsor', 'perumahan_list', 'event_list', 'catProduct', 'title', 'desc') );
     }
 
+    /* ===============================  getKlaimPromo ================== */
+    /* =============================== ================== =============== */
     public function getKlaimPromo(Request $request){
       $base = $this->base();
       $baseApp = $this->baseApp();
@@ -822,12 +947,16 @@ class HomeController extends BaseController
       return view( $this->thema() . 'klaimPromo', compact('promo', 'base', 'baseApp', 'sponsor', 'perumahan_list', 'event_list', 'catProduct', 'title', 'desc') );
     }
 
+    /* ===============================  gooAnalytic ================== */
+    /* =============================== ================== =============== */
     public function gooAnalytic(Request $request)
     {
       actGuest( json_encode($request->all()) );
       return true;
     }
     
+    /* ===============================  sendComment ================== */
+    /* =============================== ================== =============== */
     public function sendComment(Request $request)
     {
       if( !Auth::check() && !$request->uuid){
@@ -857,6 +986,8 @@ class HomeController extends BaseController
 
     }
 
+    /* ===============================  getDownloadBrowsur ================== */
+    /* =============================== ================== =============== */
     public function getDownloadBrowsur( $id, Request $request) {
       $perumahan = Perumahan::where('event_id', $baseApp['event_aktif'] )->where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
       
@@ -874,6 +1005,8 @@ class HomeController extends BaseController
         }
     }
 
+    /* ===============================  getViewBrowsur ================== */
+    /* =============================== ================== =============== */
     public function getViewBrowsur($id, Request $request){
       $perumahan = Perumahan::where('event_id', $baseApp['event_aktif'] )->where('uuid', $id)->where('status', 1)->whereNull('deleted_at')->first();
       $base = $this->base( false );
@@ -893,6 +1026,8 @@ class HomeController extends BaseController
           return view( $this->thema() . 'viewFile', compact( 'base', 'baseApp', 'file') );
         }
     }
+    /* ===============================  webhook ================== */
+    /* =============================== ================== =============== */
     public function webhook(){
       return true;
     }

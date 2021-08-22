@@ -212,14 +212,25 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // ==========================================================
     // ==========================================================
 
-    Route::get('/test-email/{email?}/{kode?}', [
+    Route::get('/test-email/{email?}/{name?}/{kode?}', [
         'as' => 'test.email',
         'uses' => 'AuthController@sendEmailForgetPassword',
     ]);
 
+    Route::get('/convert-image-db-to-file', [
+        'as' => 'test.db-to-file',
+        'uses' => 'HomeController@getDbToFile',
+    ]);
+    
+
 	Route::get('/konfirmasi-reset-password/{kode?}', [
         'as' => 'konfirmasi_reset_password.email',
-        'uses' => 'AuthController@getKonfirmasiResetPassword',
+        'uses' => 'HomeController@getKonfirmasiResetPassword',
+    ]);
+
+    Route::post('/konfirmasi-new-password', [
+        'as' => 'expoproperty_front.update-new-password',
+        'uses' => 'AuthController@postKonfirmasiNewPassword',
     ]);
 
 

@@ -237,17 +237,30 @@ class AuthController extends BaseController
             return response()->json(['response' => 'error', 'errorMessage'=> 'Email tidak terdaftar']);
         }
         $user->kode_konfirmasi = rand(100000,999999);
+        $user->status_konfirmasi = '';
         $user->save();
-        $this->sendEmailForgetPassword($request->email, $user->kode_konfirmasi);
+        $this->sendEmailForgetPassword($request->email, $user->name, $user->kode_konfirmasi);
 
         return response()->json(['response' => 'success']);
     }
 
-	public function getKonfirmasiResetPassword($kode){
+    public function postKonfirmasiNewPassword(Request $request) {
+        $user = \App\Models\JobfairUser::find($request->id);
+
+        if(!$user){
+            Log::error('postKonfirmasiNewPassword '.$request->id);
+            return response()->json(['response' => 'error', 'errorMessage'=> 'Email tidak terdaftar']);
+        }
+        $user->kode_konfirmasi = '';
+        $user->status_konfirmasi = 1;
+        $user->password = Hash::make( $request->password );
+        $user->save();
+
+        return response()->json(['response' => 'success', 'reload' => true]);
     }
 
 
-   public function sendEmailForgetPassword($email = '', $kode = ''){
+   public function sendEmailForgetPassword($email = '', $name = '', $kode = ''){
       $details = [
                'title' => 'Mail Reset Password, Virtualfair.ub.ac.id',
                'body' => 'klik Link berikut untuk mereset password anda <br/>
@@ -264,7 +277,7 @@ class AuthController extends BaseController
             'To' => [
                   [
                      'Email' => $email,
-                     'Name' => "Reset password"
+                     'Name' => $name
                   ]
             ],
             'Subject' => "Reset password, VirtualFair.ub.ac.id",
@@ -289,8 +302,13 @@ class AuthController extends BaseController
       curl_close ($ch);
       
       $response = json_decode($server_output);
-      if ($response->Messages[0]->Status == 'success') {
-         echo "Email sent successfully.";
+      if($response->ErrorMessage){
+          Log::error('Error Send Email '.$email . ' ::: ' . $response->ErrorMessage);
+          echo $response->ErrorMessage;
+      } else {
+          if ($response->Messages[0]->Status == 'success') {
+             echo "Email sent successfully.";
+          }
       }
    }
 
