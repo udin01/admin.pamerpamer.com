@@ -96,7 +96,11 @@
           <div class="form-group col-md-4">
             <div class="text-right">
               <label class="form-check-label">
-                <a href="{{ route('expoproperty_front.login') }}">Sudah punya Akun?</a>
+                <a href="{{ route('expoproperty_front.login') }}">kembali ke halaman Login</a>
+              </label>
+            
+            <label class="form-check-label">
+                <a href="{{ route('expoproperty_front.forgetPassword') }}" class="text-danger">Lupa Password?</a>
               </label>
             </div>
           </div>

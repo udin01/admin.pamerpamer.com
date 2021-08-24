@@ -546,7 +546,7 @@ style="background-image: url({{ env('URL_ENDPOINT').$baseApp['bg_login'] }}); ba
                   <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth perusahaan lain</button>
 
                   <div class="col-sm-12 wow fadeIn pt-5">
-                        <h6 class="text-center"><b>Event {{ env('URL_ENDPOINT_NAME') }}</b></h6>
+                        <h6 class="text-center"><b>Event {{ env('APP_NAME') }}</b></h6>
                         <ul>
                            
                            @foreach ( $event_list as $kDev => $vDev )

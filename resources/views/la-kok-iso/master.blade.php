@@ -153,11 +153,11 @@
 													Events
 												</a>
 											</li>
-                      						<li>
+                      						{{--<li>
 												<a class="nav-link font-weight-semibold" data-hash href="{{ route('expoproperty_front.regionalSlug') }}">
 													List Jobs
 												</a>
-											</li>
+											</li>--}}
                       
                       @if( !\Auth::check() )
                       <li>

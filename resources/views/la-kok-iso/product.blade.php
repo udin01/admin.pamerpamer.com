@@ -97,8 +97,10 @@
 							<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".devOther" onclick="gooAnalytic('modal-booth-lain')">Lihat booth perusahaan lain</button>
 
 							<hr class="solid my-2">
-
-							<h5 class="font-weight-bold pt-3">Categories</h5>
+                        
+                        	@if( count($catProduct) )
+								<h5 class="font-weight-bold pt-3">Categories</h5>
+                        	@endif
 							<ul class="nav nav-list flex-column">
 							@foreach ( $catProduct as $catp )
 								<li class="nav-item">
@@ -107,7 +109,7 @@
 							@endforeach
 							</ul>
 
-							<h5 class="font-weight-bold pt-3">Event {{ env('URL_ENDPOINT_NAME') }}</h5>
+							<h5 class="font-weight-bold pt-3">Event {{ env('APP_NAME') }}</h5>
 							<ul class="nav nav-list flex-column">
 							@foreach ( $event_list as $kDev => $vDev )
 								<li class="nav-item" style="border:none;cursor: pointer;" onclick="document.location='{{ route('expoproperty_front.event', ['id' => $vDev->uuid ]) }}';return false;">
@@ -462,7 +464,7 @@
                         'title' => 'Website',
                         'desc' => '
             <p class="_2VUHEvZBE00PkfHVPj0A5k">
-               <a class="r1gHLKfN7vCbDnBPvvF3d" href="http://www.gudanggaramtbk.com">gudanggaramtbk.com</a>
+               <a class="r1gHLKfN7vCbDnBPvvF3d" href="http://www.malangsoftcom.com">malangsoftcom.com</a>
             </p>',
                      ];
       // ===============  ========================
@@ -632,6 +634,31 @@
       {{-- =============== ./Extra ======================== --}}
 
    </div>
+
+   {{-- =============== Loker lain ======================== --}}
+   <div class="row">
+      <div class="col mb-1">
+         <h2 class="text-color-dark font-weight-bold text-left mb-1 ml-2">Lowongan Lain</h2>
+         <hr class="my-1">
+      </div>
+   </div>
+   
+
+   <div class="row my-4 py-3 ">
+
+   @foreach ( $perumahan->jobs as $job )
+		@if($job->id !== $productDetail->id)
+			<div class="mx-auto my-3 px-3 card bg-color-grey card-text-color-hover-light border-0 bg-color-hover-primary transition-2ms box-shadow-1 box-shadow-1-primary box-shadow-1-hover" onclick="document.location='{{ route('expoproperty_front.product', ['id' => $job->uuid ])}}';return false;">
+				<div class="card-body">
+					<h4 class="card-title mb-1 text-4 font-weight-bold transition-2ms">{{ $job->name }}</h4>
+					<p class="card-text transition-2ms">Location : {{ $job->penempatan }}</p>
+				</div>
+			</div>
+		@endif
+   @endforeach
+
+   </div>
+   {{-- =============== ./Loker lain ======================== --}}
 
 
 

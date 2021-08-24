@@ -158,7 +158,7 @@
 						<i class="fas fa-camera text-light"></i>
 					</span>
 				</div>
-				<input type="file" id="pasfoto" name="pasfoto" class="profile-image-input">
+            <input type="file" id="pasfoto" name="pasfoto" class="profile-image-input" style="width: 200px;" />
 			</div>
 		</div>
 		<aside class="sidebar mt-2" id="sidebar">
@@ -548,11 +548,11 @@
             				} catch (\Throwable $th) {}
                         
                         @endphp 
-								<a href="{{ route('expoproperty_front.product', ['id' => $uuidJobS]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+								<a target="_blank" href="{{ route('expoproperty_front.product', ['id' => $uuidJobS]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
 									{{ $nameJobS }} 
 								</a>
 							<small><b>
-								<a href="{{ route('expoproperty_front.dev', ['id' => $companyUuidJobS ]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+								<a target="_blank" href="{{ route('expoproperty_front.dev', ['id' => $companyUuidJobS ]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
 									{{ $companyJobS }}
 								</a>
 							</b></small>
@@ -563,17 +563,10 @@
 						<td>
 							<small>{!! \Carbon\Carbon::parse($jobS->updated_at)->format("M d, Y") !!}</small>
 						</td>
-						<td><a href="{{ route('expoproperty_front.saveJobDelete', ['id' => $jobS->uuid ]) }}" class="btn btn-3d btn-xs btn-danger rounded-0 mb-2">Delete</a></td>
+						<td><a target="_blank" href="{{ route('expoproperty_front.saveJobDelete', ['id' => $jobS->uuid ]) }}" class="btn btn-3d btn-xs btn-danger rounded-0 mb-2">Delete</a></td>
 					</tr>
 				@endforeach
-					{{-- <tr>
-						<td>Web developer Afcchen, Surabaya</td>
-						<td>Surabaya</td>
-						<td>Negosiasi</td>
-						<td>Maret 20, 2021</td>
-						<td>Open</td>
-						<td><a href="#" class="btn btn-3d btn-xs btn-danger rounded-0 mb-2">Delete</a></td>
-					</tr> --}}
+					
 				</tbody>
 			</table>
 		</div>
@@ -624,11 +617,11 @@
                         		$penempatanJobA = $jobA->job->penempatan;
             				} catch (\Throwable $th) {}
                         @endphp 
-								<a href="{{ route('expoproperty_front.product', ['id' => $uuidJob]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+								<a target="_blank" href="{{ route('expoproperty_front.product', ['id' => $uuidJob]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
 									{{ $nameJobA }} 
 								</a>
 							<small><b>
-								<a href="{{ route('expoproperty_front.dev', ['id' => $companyUuidJobA ]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
+								<a target="_blank" href="{{ route('expoproperty_front.dev', ['id' => $companyUuidJobA ]) }}" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary">
 									{{ $companyJobA }}
 								</a>
 							</b></small>
@@ -639,7 +632,7 @@
 							<small>{!! \Carbon\Carbon::parse($jobA->updated_at)->format("M d, Y") !!}</small>
 						</td>
 						<td>
-							<a href="{{ route('expoproperty_front.applyJobDelete', ['id' => $jobA->uuid ]) }}" class="btn btn-xs btn-danger rounded-0 mb-2">Cancel</a><br/>
+							<a target="_blank" href="{{ route('expoproperty_front.applyJobDelete', ['id' => $jobA->uuid ]) }}" class="btn btn-xs btn-danger rounded-0 mb-2">Cancel</a><br/>
 							<button type="button" class="mt-2 btn btn-warning btn-xs" data-toggle="modal" data-target=".viewCv-{{ $jobA_key }}" onclick="gooAnalytic('modal-booth-lain')">View Prolog</button>
 
 
