@@ -148,7 +148,7 @@
           "title": "{{ $txt->btn_enter }}",
           // .{{-- =============================== edit ============================== --}}
           "text": "MASUK BOOTH<br>",
-          "link": "{{ env('APP_URL_HOME')}}"
+          "link": "{{ url('/home')  }}"
         }
       ]
     }
