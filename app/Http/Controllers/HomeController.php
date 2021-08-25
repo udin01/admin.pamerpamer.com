@@ -633,6 +633,22 @@ class HomeController extends BaseController
       return view( $this->thema() . 'register', compact( 'base', 'baseApp', 'sponsor') );
     }
 
+    /* ===============================  getResepsionis ================== */
+    /* =============================== ================== =============== */
+    public function getResepsionis(Request $request){
+      $base = $this->base();
+      $baseApp = $this->baseApp();
+      $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
+      $title = "Resepsionis";
+      $txt = (Object) [
+        'btn_enter' => "Masuk Halaman Web ".env('APP_NAME'),
+        // 'sambutan' => '<iframe width="1780" height="980" src="https://www.youtube.com/embed/t4dpTutJehI" title="Sambutan Bapak Kepala Rektor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        'sambutan' => '<iframe id="youtubeWithControls" width="800" height="500" src="https://www.youtube.com/embed/t4dpTutJehI?rel=0&amp;controls=1&amp;showinfo=0&amp;autoplay=1" llow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope" frameborder="0" allowfullscreen></iframe>'
+      ];
+
+      return view('pano.resepsionis', compact( 'base', 'baseApp', 'sponsor', 'title', 'txt') );
+    }
+
     /* ===============================  getSlugDev ================== */
     /* =============================== ================== =============== */
     public function getSlugDev($dev, $id){
