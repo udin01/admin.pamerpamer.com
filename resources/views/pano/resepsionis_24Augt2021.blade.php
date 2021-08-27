@@ -55,17 +55,10 @@
 </div>
 {{-- ================================ ./Embed Vidio =============================== --}}
 
-{{-- ================================== Embed Event =============================== --}}
-<div id="iframespotEvent" data-source="">
-  {{-- <iframe id="youtube" width="1780" height="980" src="https://www.youtube.com/embed/a4YjKmsXyds?rel=0&amp;controls=0&amp;showinfo=0&amp;" frameborder="0" allowfullscreen></iframe>' --}}
-  {!! $txt->event !!}
-</div>
-{{-- ================================ ./Embed Event =============================== --}}
-
 <div id="sceneList">
   <ul class="scenes">
     
-      <a href="javascript:void(0)" class="scene" data-id="0-dd">
+      <a href="javascript:void(0)" class="scene" data-id="0-22">
          {{-- ================================ Title App =============================== --}}
          <li class="text">{{ $title }}</li>
          {{-- ================================ ./Title App =============================== --}}
@@ -127,7 +120,7 @@
    var APP_DATA = {
   "scenes": [
     {
-      "id": "0-dd",
+      "id": "0-22",
       "name": "{{ $title }}",
       // .{{-- =============================== edit ============================== --}}
       "levels": [
@@ -141,128 +134,22 @@
           "size": 512
         }
       ],
-      "faceSize": 300,
+      "faceSize": 512,
       "initialViewParameters": {
-        "yaw": -0.037124167514429374,
-        "pitch": -0.3677258876337728,
-        "fov": 1.464319800919779
+        "pitch": 0,
+        "yaw": 0,
+        "fov": 1.5707963267948966
       },
       "linkHotspots": [],
       "infoHotspots": [
-
-        /* {{--
-        {
+         {
           "yaw": -0.10825452308336914,
           "pitch": -0.31923970416418257,
           "title": "{{ $txt->btn_enter }}",
+          // .{{-- =============================== edit ============================== --}}
           "text": "MASUK BOOTH<br>",
           "link": "{{ url('/home')  }}"
-        }--}}
-        */
-        {
-          "yaw": -0.5396933206314962,
-          "pitch": -0.10389114276233613,
-          "title": "PT METRODATA ELECTRONIC",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '9f9562c8-adf4-451c-8533-11b170bd3793']) }}"
-        },
-        {
-          "yaw": 0.15256645570747374,
-          "pitch": -0.11631744994312854,
-          "title": "PT TORRECID INDONESIA",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'a63cde99-57c2-44c8-b9f7-d5c71374f6a5']) }}"
-        },
-        {
-          "yaw": 0.6543195229796162,
-          "pitch": -0.20788468655146808,
-          "title": "LOEKITO EDUCATION GROUP",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '1c38e064-506d-42be-8613-624e46fbf79d']) }}"
-        },
-        {
-          "yaw": 1.208367049023785,
-          "pitch": -0.21947634601988142,
-          "title": "PT CITRA TUBINDO TBK",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '9205a8c1-7a5b-4957-be8c-355f34ddf1a4']) }}"
-        },
-        {
-          "yaw": 1.6364968005598897,
-          "pitch": -0.23754314957881562,
-          "title": "SAMSUNG RESEARCH IINDONESIA",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '6881d608-90eb-47c3-a586-d86a48572125']) }}"
-        },
-        {
-          "yaw": 2.1302320998623987,
-          "pitch": -0.2262210752692546,
-          "title": "PT MALINDO FEEDMIL",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '66a9a221-a943-4eba-aafb-4d72ecd51cf8']) }}"
-        },
-        {
-          "yaw": 2.4701503066605195,
-          "pitch": -0.04615261849161634,
-          "title": "EPSON",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '2bf3c81e-8eab-4b28-8360-277bb6d9f9b2']) }}"
-        },
-        {
-          "yaw": 2.7984758534953986,
-          "pitch": -0.06279176834192413,
-          "title": "PARAGON TECHNOLOGI AND INNOVATION",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'e6c6970d-ce5b-44fb-9d4a-1c502d5fe0ea']) }}"
-        },
-        {
-          "yaw": -3.0411285520012417,
-          "pitch": -0.06448044386871388,
-          "title": "PT BUMITAMA GUNAJAYA AGRO",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'b59e62b1-e889-4f01-8e8a-3a88383c7f93']) }}"
-        },
-        {
-          "yaw": -2.6236528823505676,
-          "pitch": -0.06928277595631727,
-          "title": "ADIS DIMENSION FOOTWEAR",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '76178981-7ec0-4290-b7a1-a82b1a004e93']) }}"
-        },
-        {
-          "yaw": -2.377527817741896,
-          "pitch": -0.2160290308550632,
-          "title": "BANK CIMB NIAGA",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'ebaac395-7646-48dd-a88b-03e70ae0b885']) }}"
-        },
-        {
-          "yaw": -1.9322761969181705,
-          "pitch": -0.24619948365573308,
-          "title": "ASIAN AGRI",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '0861e22b-1715-4a84-8489-32ffbce3dd48']) }}"
-        },
-        {
-          "yaw": -1.4172231023813033,
-          "pitch": -0.24052469248345965,
-          "title": "ASTRA CREDIT CAOMPANIES",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'aa3c47bb-be5c-409e-bfa9-139dc1802b2c']) }}"
-        },
-        {
-          "yaw": -1.0121988095642607,
-          "pitch": -0.2371423658665357,
-          "title": "PT WINGS SURYA",
-          "text": "Masuk Booth",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '31d358f4-4768-4181-9843-572214907ca5']) }}"
         }
-        // {
-        //   "yaw": 0.36624630626879195,
-        //   "pitch": -0.5159903329205466,
-        //   "title": "SAMBUTAN REKTOR<br>",
-        //   "text": "UNIVERSITAS BRAWIJAYA<br>"
-        // }
       ]
     }
   ],
@@ -270,7 +157,7 @@
   // .{{-- =============================== edit ============================== --}}
   "settings": {
     "mouseViewMode": "drag",
-    "autorotateEnabled": false,
+    "autorotateEnabled": true,
     "fullscreenButton": false,
     "viewControlButtons": false
   }
@@ -395,32 +282,8 @@ if (!window.loctionFile) {
    var container = scene.hotspotContainer();
 
    // Create hotspot with different sources.
-   container.createHotspot(
-     document.getElementById('iframespot'),
-    //  { yaw: 1.5705, pitch: 0.002 },
-    {
-        yaw: 0.340,
-        // pitch: -0.5159903329205466
-        pitch: -0.54,
-    }, { 
-      perspective: { 
-        radius: 740,
-        extraTransforms: "rotateY(17deg) rotateX(27deg) rotateZ(9deg)",
-      }
-    } );
-
-    container.createHotspot(
-     document.getElementById('iframespotEvent'),
-    {
-        yaw: -0.3464689031477839,
-        pitch: -0.54,
-    }, { 
-      perspective: { 
-        radius: 740,
-        extraTransforms: "rotateY(-20deg) rotateX(20deg) rotateZ(351deg)",
-      }
-    } );
-
+   container.createHotspot(document.getElementById('iframespot'), { yaw: 1.5705, pitch: 0.002 },
+   { perspective: { radius: 740 }});
 
    // HTML sources.
    var hotspotHtml = {

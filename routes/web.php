@@ -156,7 +156,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/home', [
         'as' => 'expoproperty_front.home2',
-        'uses' => 'HomeController@getHome',
+        // 'uses' => 'HomeController@getHome',
+        'uses' => 'HomeController@getResepsionis',
     ]);
 
     Route::get('/welcome', [
@@ -238,6 +239,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/resepsionis', [
         'as' => 'expoproperty_front.resepsionis',
         'uses' => 'HomeController@getResepsionis',
+    ]);
+
+    Route::get('/iframe-event', [
+        'as' => 'expoproperty_front.iframeEvent',
+        'uses' => 'HomeController@getIframeEvent',
     ]);
 
 
