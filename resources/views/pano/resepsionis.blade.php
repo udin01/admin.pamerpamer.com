@@ -157,7 +157,7 @@
   // .{{-- =============================== edit ============================== --}}
   "settings": {
     "mouseViewMode": "drag",
-    "autorotateEnabled": false,
+    "autorotateEnabled": true,
     "fullscreenButton": false,
     "viewControlButtons": false
   }

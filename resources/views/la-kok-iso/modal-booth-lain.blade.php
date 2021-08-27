@@ -15,9 +15,9 @@
                      <div class="row pt-2 pb-4 mb-4">
                      @foreach ( $perumahan_list as $kPer => $vPer )
 
-                        <div class="col-md-4 col-lg-3 mt-3 mb-3 m-auto">
-                           <div class="custom-speaker-card bg-color-light m-auto">
-                              <div class="speaker-photo">
+                        <div class="col-4 mt-3 mb-3 m-auto">
+                           <div class="custom-speaker-card bg-color-light m-auto" style="border: none;">
+                              <div class="speaker-photo text-center">
                                  {{-- <a href="#speaker-content-1" class="popup-with-zoom-anim text-decoration-none"m text-decoration-none"> --}}
                      <a href="{{ route('expoproperty_front.dev', ['id' => $vPer->uuid ]) }}">
                                     <img loading="lazy"  @if($vPer->img_pic) src="{{ env('URL_ENDPOINT').$vPer->img_pic }}"  @else src="{{ env('URL_ENDPOINT').$baseApp['default_logo_comapny'] }}" @endif class="img-fluid" alt="" title="{{ $vPer->name }}">
