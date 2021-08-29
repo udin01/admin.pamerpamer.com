@@ -651,7 +651,7 @@ class HomeController extends BaseController
       $base = $this->base();
       $baseApp = $this->baseApp();
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
-      $title = "Resepsionis";
+      $title = "";
       // $folder_asset = '3d-resepsionis';
       $folder_asset = '3d-resepsionis-2';
 
