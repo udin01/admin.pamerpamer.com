@@ -652,14 +652,14 @@ class HomeController extends BaseController
       $baseApp = $this->baseApp();
       $sponsor = Sponsor::where('status', 1)->whereNull('deleted_at')->get();
       $title = "";
-      // $folder_asset = '3d-resepsionis';
-      $folder_asset = '3d-resepsionis-2';
+      $folder_asset = '3d-resepsionis';
+      // $folder_asset = '3d-resepsionis-2';
 
       $txt = (Object) [
         'btn_enter' => "Masuk Halaman Web ".env('APP_NAME'),
         // 'sambutan' => '<iframe width="1780" height="980" src="https://www.youtube.com/embed/t4dpTutJehI" title="Sambutan Bapak Kepala Rektor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-        'sambutan' => '<iframe id="youtubeWithControls" width="315" height="207" src="https://www.youtube.com/embed/t4dpTutJehI?rel=0&amp;controls=1&amp;showinfo=0&amp;autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope" frameborder="0" allowfullscreen></iframe>',
-        'event' => '<iframe id="eventWithControls" width="315" height="207" src="'.route('expoproperty_front.iframeEvent').'" frameborder="0" allowfullscreen></iframe>'
+        'sambutan' => '<iframe id="youtubeWithControls" width="305" height="207" src="https://www.youtube.com/embed/t4dpTutJehI?rel=0&amp;controls=1&amp;showinfo=0&amp;autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope" frameborder="0" allowfullscreen></iframe>',
+        'event' => '<iframe id="eventWithControls" width="316" height="207" src="'.route('expoproperty_front.iframeEvent').'" frameborder="0" allowfullscreen></iframe>'
       ];
       $dev = Perumahan::where('event_id', $baseApp['event_aktif'] )->where('status', 1)->whereNull('deleted_at')->orderBy('sort', 'asc')->get(['id', 'name', 'uuid']);
       $dev_mod = [];

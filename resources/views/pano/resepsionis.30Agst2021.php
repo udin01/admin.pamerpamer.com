@@ -4,11 +4,10 @@
 
    {{-- ================================ Title =============================== --}}
    @php
-   $title = $title . ' ' . ucwords( env('APP_NAME') );
+      $title = $title . ' ' . ucwords( env('APP_NAME') );
    @endphp
    <title>{{ $title }}</title>
-
-
+   
    <meta name="author" content="{{ $base['meta_author'] }}">
    <meta name="description" content="{{ $base['meta_description']}}">
    <meta name="keywords" content="{{ $base['meta_keywords'] }}">
@@ -49,8 +48,6 @@
 
 <div id="pano"></div>
 
-
-
 {{-- ================================== Embed Vidio =============================== --}}
 <div id="iframespot" data-source="">
   {{-- <iframe id="youtube" width="1780" height="980" src="https://www.youtube.com/embed/a4YjKmsXyds?rel=0&amp;controls=0&amp;showinfo=0&amp;" frameborder="0" allowfullscreen></iframe>' --}}
@@ -65,12 +62,13 @@
 </div>
 {{-- ================================ ./Embed Event =============================== --}}
 
-
 <div id="sceneList">
   <ul class="scenes">
     
-      <a href="javascript:void(0)" class="scene" data-id="0-baru-desain360-revisi">
-        <li class="text">{{ $title }}</li>
+      <a href="javascript:void(0)" class="scene" data-id="0-dd">
+         {{-- ================================ Title App =============================== --}}
+         <li class="text">{{ $title }}</li>
+         {{-- ================================ ./Title App =============================== --}}
       </a>
     
   </ul>
@@ -118,18 +116,20 @@
 <script src="{{ asset( $folder_asset.'/'.'vendor/bowser.min.js')}}" ></script>
 <script src="{{ asset( $folder_asset.'/'.'vendor/marzipano.js')}}" ></script>
 
-{{-- <script src="data.js"></script>
-<script src="index.js"></script> --}}
+{{-- <script src="{{ asset( $folder_asset.'/'.'data.js')}}"></script>
+<script src="{{ asset( $folder_asset.'/'.'index.js')}}"></script> --}}
 
 </body>
 
+
 {{-- =============================== DATA.js ============================== --}}
 <script>
-  var APP_DATA = {
+   var APP_DATA = {
   "scenes": [
     {
-      "id": "0-baru-desain360-revisi",
+      "id": "0-dd",
       "name": "{{ $title }}",
+      // .{{-- =============================== edit ============================== --}}
       "levels": [
         {
           "tileSize": 256,
@@ -139,138 +139,135 @@
         {
           "tileSize": 512,
           "size": 512
-        },
-        {
-          "tileSize": 512,
-          "size": 1024
-        },
-        {
-          "tileSize": 512,
-          "size": 2048
         }
       ],
-      "faceSize": 1344,
+      "faceSize": 300,
       "initialViewParameters": {
-        "yaw": 0.0028288388842945267,
-        "pitch": -0.26399159081484846,
-        "fov": 1.3491427258119375
+        "yaw": -0.037124167514429374,
+        "pitch": -0.3677258876337728,
+        "fov": 1.464319800919779
       },
       "linkHotspots": [],
       "infoHotspots": [
-        //  {
-        //   "yaw": 0.2440744051662911,
-        //   "pitch": -0.7166544026649184,
-        //   "title": "smbtn",
-        //   "text": "Text"
-        // },
-        // {
-        //   "yaw": -0.3750846628763096,
-        //   "pitch": -0.678494236899791,
-        //   "title": "Event",
-        //   "text": "Text"
-        // },
+
+        /* {{--
         {
-          "yaw": -0.39314738510207903,
-          "pitch": 0.06233407840578309,
-          "text": "Masuk Booth",
-          "title": "PT MALINDO FEEDMIL",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '66a9a221-a943-4eba-aafb-4d72ecd51cf8']) }}"
-        },
+          "yaw": -0.10825452308336914,
+          "pitch": -0.31923970416418257,
+          "title": "{{ $txt->btn_enter }}",
+          "text": "MASUK BOOTH<br>",
+          "link": "{{ url('/home')  }}"
+        }--}}
+        */
         {
-          "yaw": -0.18704150875496417,
-          "pitch": 0.055914360209328606,
-          "text": "Masuk Booth",
-          "title": "PARAGON TECHNOLOGI AND INNOVATION",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'e6c6970d-ce5b-44fb-9d4a-1c502d5fe0ea']) }}"
-        },
-        {
-          "yaw": 0.03982591542823144,
-          "pitch": 0.05770092474986477,
-          "text": "Masuk Booth",
-          "title": "SAMSUNG RESEARCH IINDONESIA",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '6881d608-90eb-47c3-a586-d86a48572125']) }}"
-        },
-        {
-          "yaw": 0.2538559997737,
-          "pitch": 0.05283181377950541,
-          "text": "Masuk Booth",
-          "title": "EPSON",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '2bf3c81e-8eab-4b28-8360-277bb6d9f9b2']) }}"
-        },
-        {
-          "yaw": 0.6386107070270501,
-          "pitch": 0.08335117245046852,
-          "text": "Masuk Booth",
-          "title": "BANK CIMB NIAGA",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'ebaac395-7646-48dd-a88b-03e70ae0b885']) }}"
-        },
-        {
-          "yaw": 1.0047614945337546,
-          "pitch": 0.12162809930560492,
-          "text": "Masuk Booth",
-          "title": "PT TORRECID INDONESIA",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'a63cde99-57c2-44c8-b9f7-d5c71374f6a5']) }}"
-        },
-        {
-          "yaw": 1.4434105917585036,
-          "pitch": 0.12419946788128833,
-          "text": "Masuk Booth",
-          "title": "ASTRA CREDIT CAOMPANIES",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'aa3c47bb-be5c-409e-bfa9-139dc1802b2c']) }}"
-        },
-        {
-          "yaw": 1.8513038883285677,
-          "pitch": 0.12445708817490697,
-          "text": "Masuk Booth",
-          "title": "LOEKITO EDUCATION GROUP",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '1c38e064-506d-42be-8613-624e46fbf79d']) }}"
-        },
-        {
-          "yaw": 2.2481542093851647,
-          "pitch": 0.09846316149197776,
-          "text": "Masuk Booth",
-          "title": "PT WINGS SURYA",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '31d358f4-4768-4181-9843-572214907ca5']) }}"
-        },
-        {
-          "yaw": -2.368886175390715,
-          "pitch": 0.09964902045729396,
-          "text": "Masuk Booth",
-          "title": "ASIAN AGRI",
-          "link": "{{ route('expoproperty_front.dev', ['id' => '0861e22b-1715-4a84-8489-32ffbce3dd48']) }}"
-        },
-        {
-          "yaw": -1.9692382655988467,
-          "pitch": 0.12731253938606635,
-          "text": "Masuk Booth",
+          "yaw": -0.5396933206314962,
+          "pitch": -0.10389114276233613,
           "title": "PT METRODATA ELECTRONIC",
+          "text": "Masuk Booth",
           "link": "{{ route('expoproperty_front.dev', ['id' => '9f9562c8-adf4-451c-8533-11b170bd3793']) }}"
         },
         {
-          "yaw": -1.5692170018383518,
-          "pitch": 0.12167869830902234,
+          "yaw": 0.15256645570747374,
+          "pitch": -0.11631744994312854,
+          "title": "PT TORRECID INDONESIA",
           "text": "Masuk Booth",
-          "title": "PT BUMITAMA GUNAJAYA AGRO",
-          "link": "{{ route('expoproperty_front.dev', ['id' => 'b59e62b1-e889-4f01-8e8a-3a88383c7f93']) }}"
+          "link": "{{ route('expoproperty_front.dev', ['id' => 'a63cde99-57c2-44c8-b9f7-d5c71374f6a5']) }}"
         },
         {
-          "yaw": -1.1402581694000773,
-          "pitch": 0.0846987334551006,
+          "yaw": 0.6543195229796162,
+          "pitch": -0.20788468655146808,
+          "title": "LOEKITO EDUCATION GROUP",
           "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => '1c38e064-506d-42be-8613-624e46fbf79d']) }}"
+        },
+        {
+          "yaw": 1.208367049023785,
+          "pitch": -0.21947634601988142,
           "title": "PT CITRA TUBINDO TBK",
+          "text": "Masuk Booth",
           "link": "{{ route('expoproperty_front.dev', ['id' => '9205a8c1-7a5b-4957-be8c-355f34ddf1a4']) }}"
         },
         {
-          "yaw": -0.7653652332270973,
-          "pitch": 0.04195606147129283,
+          "yaw": 1.6364968005598897,
+          "pitch": -0.23754314957881562,
+          "title": "SAMSUNG RESEARCH IINDONESIA",
           "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => '6881d608-90eb-47c3-a586-d86a48572125']) }}"
+        },
+        {
+          "yaw": 2.1302320998623987,
+          "pitch": -0.2262210752692546,
+          "title": "PT MALINDO FEEDMIL",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => '66a9a221-a943-4eba-aafb-4d72ecd51cf8']) }}"
+        },
+        {
+          "yaw": 2.4701503066605195,
+          "pitch": -0.04615261849161634,
+          "title": "EPSON",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => '2bf3c81e-8eab-4b28-8360-277bb6d9f9b2']) }}"
+        },
+        {
+          "yaw": 2.7984758534953986,
+          "pitch": -0.06279176834192413,
+          "title": "PARAGON TECHNOLOGI AND INNOVATION",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => 'e6c6970d-ce5b-44fb-9d4a-1c502d5fe0ea']) }}"
+        },
+        {
+          "yaw": -3.0411285520012417,
+          "pitch": -0.06448044386871388,
+          "title": "PT BUMITAMA GUNAJAYA AGRO",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => 'b59e62b1-e889-4f01-8e8a-3a88383c7f93']) }}"
+        },
+        {
+          "yaw": -2.6236528823505676,
+          "pitch": -0.06928277595631727,
           "title": "ADIS DIMENSION FOOTWEAR",
+          "text": "Masuk Booth",
           "link": "{{ route('expoproperty_front.dev', ['id' => '76178981-7ec0-4290-b7a1-a82b1a004e93']) }}"
         },
+        {
+          "yaw": -2.377527817741896,
+          "pitch": -0.2160290308550632,
+          "title": "BANK CIMB NIAGA",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => 'ebaac395-7646-48dd-a88b-03e70ae0b885']) }}"
+        },
+        {
+          "yaw": -1.9322761969181705,
+          "pitch": -0.24619948365573308,
+          "title": "ASIAN AGRI",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => '0861e22b-1715-4a84-8489-32ffbce3dd48']) }}"
+        },
+        {
+          "yaw": -1.4172231023813033,
+          "pitch": -0.24052469248345965,
+          "title": "ASTRA CREDIT CAOMPANIES",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => 'aa3c47bb-be5c-409e-bfa9-139dc1802b2c']) }}"
+        },
+        {
+          "yaw": -1.0121988095642607,
+          "pitch": -0.2371423658665357,
+          "title": "PT WINGS SURYA",
+          "text": "Masuk Booth",
+          "link": "{{ route('expoproperty_front.dev', ['id' => '31d358f4-4768-4181-9843-572214907ca5']) }}"
+        }
+        // {
+        //   "yaw": 0.36624630626879195,
+        //   "pitch": -0.5159903329205466,
+        //   "title": "SAMBUTAN REKTOR<br>",
+        //   "text": "UNIVERSITAS BRAWIJAYA<br>"
+        // }
       ]
     }
   ],
   "name": "{{ $title }}",
+  // .{{-- =============================== edit ============================== --}}
   "settings": {
     "mouseViewMode": "drag",
     "autorotateEnabled": false,
@@ -279,6 +276,7 @@
   }
 };
 </script>
+
 
 <style>
    .zoom-in-out-box {
@@ -401,13 +399,13 @@ if (!window.loctionFile) {
      document.getElementById('iframespot'),
     //  { yaw: 1.5705, pitch: 0.002 },
     {
-        yaw: 0.250,
+        yaw: 0.340,
         // pitch: -0.5159903329205466
-        pitch: -0.72,
+        pitch: -0.54,
     }, { 
       perspective: { 
-        radius: 755,
-        extraTransforms: "rotateY(17deg) rotateX(27deg) rotateZ(10deg)",
+        radius: 740,
+        extraTransforms: "rotateY(17deg) rotateX(27deg) rotateZ(9deg)",
       }
     } );
 
@@ -415,11 +413,11 @@ if (!window.loctionFile) {
      document.getElementById('iframespotEvent'),
     {
         yaw: -0.3464689031477839,
-        pitch: -0.7,
+        pitch: -0.54,
     }, { 
       perspective: { 
         radius: 740,
-        extraTransforms: "rotateY(-29deg) rotateX(16deg) rotateZ(345deg)",
+        extraTransforms: "rotateY(-20deg) rotateX(20deg) rotateZ(351deg)",
       }
     } );
 
@@ -746,6 +744,5 @@ if (!window.loctionFile) {
 
 </script>
 {{-- =============================== ./INDEX.js ============================== --}}
-
 
 </html>
